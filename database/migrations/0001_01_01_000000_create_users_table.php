@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->text('address');
+            $table->text('address')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
