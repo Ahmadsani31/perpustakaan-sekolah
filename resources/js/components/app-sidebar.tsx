@@ -4,13 +4,44 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, CookieIcon } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: '/dashboard',
+        icon: CookieIcon,
+
+    },
+    {
+        title: 'Master',
+        href: 'master',
+        isActive: true,
+        icon: LayoutGrid,
+        items: [
+            {
+                title: "Catagory",
+                href: "/admin/categories",
+            },
+            {
+                title: "Roles",
+                href: "/master/roles",
+            },
+            {
+                title: "Permission",
+                href: "/master/permission",
+            }
+        ],
+    },
+    {
+        title: 'Organizations',
+        href: '/organizations',
+        icon: LayoutGrid,
+    },
+    {
+        title: 'Categories',
+        href: '/categories',
         icon: LayoutGrid,
     },
 ];
