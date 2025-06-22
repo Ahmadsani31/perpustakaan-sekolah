@@ -79,7 +79,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         <InputError message={errors.password} />
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                         <Checkbox
                             id="remember"
                             name="remember"
@@ -90,14 +90,14 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         <Label htmlFor="remember">Remember me</Label>
                     </div>
 
-                    <Button type="submit" className="w-full" tabIndex={4} size={'lg'} disabled={processing}>
+                    <Button type="submit" className="w-full mt-2" tabIndex={4} size={'lg'} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Log in
                     </Button>
                 </div>
 
                 <div className="text-center text-sm text-muted-foreground">
-                    Don't have an account?{' '}
+                    Don't have an account?
                     <TextLink href={route('register')} tabIndex={5}>
                         Sign up
                     </TextLink>
