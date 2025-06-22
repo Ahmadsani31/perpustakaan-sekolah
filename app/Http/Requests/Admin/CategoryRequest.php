@@ -17,7 +17,7 @@ class CategoryRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'description' => ['nullable'],
-            'cover' => ['nullable', 'mimes:png,jpg,webp', 'size:2048']
+            'cover' => ['nullable', 'mimes:png,jpg,webp']
         ];
     }
 

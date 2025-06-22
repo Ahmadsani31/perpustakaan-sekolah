@@ -3,12 +3,12 @@ import Heading from '@/components/heading';
 import HeadingSmall from '@/components/heading-small';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/react';
-import { CassetteTape, PencilIcon, PlusCircle, TrashIcon } from 'lucide-react';
+import { Head, Link, router } from '@inertiajs/react';
+import { ArrowDownUpIcon, CassetteTape, PencilIcon, PlusCircle, RefreshCwIcon, TrashIcon } from 'lucide-react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -20,6 +20,19 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { flashMessage } from '@/lib/utils';
+import { toast } from 'react-toastify';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
+import { useState } from 'react';
+import useFilter from '@/hooks/use-filter';
+import { Input } from '@/components/ui/input';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -35,10 +48,29 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface propsPage {
     categories: {
         data: itemCategory[]
+        meta: {
+            from: number;
+            total: number;
+            current_page: number;
+            per_page: number;
+            has_pages: boolean;
+            links: {
+                url: string,
+                label: string,
+                active: boolean
+            }[]
+        }
     },
     page_settings: {
         title: string;
         subtitle: string;
+    },
+    state: {
+        page: number;
+        search: string;
+        load: string;
+        field: string;
+        direction: string;
     }
 }
 
@@ -46,11 +78,33 @@ type itemCategory = {
     id: number;
     name: string;
     slug: string;
+    description: string;
     cover: string;
     created_at: string;
 }
 
-export default function Index({ categories, page_settings }: propsPage) {
+export default function Index({ categories, page_settings, state }: propsPage) {
+
+
+
+    const { data: categoryList, meta } = categories;
+
+    const [params, setParams] = useState(state)
+
+    const onSortTable = (field: any) => {
+        setParams({
+            ...params,
+            field: field,
+            direction: params.direction === 'asc' ? 'desc' : 'asc'
+
+        })
+    }
+
+    useFilter({
+        route: route('admin.categories.index'),
+        values: params,
+        only: ['categories']
+    });
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -69,26 +123,77 @@ export default function Index({ categories, page_settings }: propsPage) {
                     </Button>
 
                 </div>
-                <Card>
-                    <CardContent className='[&-td]:whitespace-nowrap [&_td]:px-6 [&_th]:px-6'>
+                <Card className='py-1 [&_td]:px-3 [&_th]:px-3'>
+                    <CardHeader className='mt-3'>
+                        <div className='flex w-full flex-col gap-4 justify-between lg:flex-row lg:items-center'>
+                            <Select value={params?.load.toString()} onValueChange={(e) => setParams({ ...params, load: e })}>
+                                <SelectTrigger className='w-full sm:w-24'>
+                                    <SelectValue placeholder='Load' />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {[10, 25, 50, 75, 100].map((number, index) => (
+                                        <SelectItem key={index} value={number.toString()}>{number}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <div className='flex items-start gap-2'>
+
+                                <Input className='w-full' placeholder='cari...' value={params?.search} onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))} />
+                                <Button variant={'destructive'} onClick={() => setParams(state)} size={'lg'}><RefreshCwIcon /> Clear</Button>
+                            </div>
+
+                        </div>
+
+                    </CardHeader>
+                    <CardContent className='[&-td]:whitespace-nowrap'>
                         <Table className='w-full'>
                             <TableHeader>
                                 <TableRow>
                                     <TableHead>No</TableHead>
-                                    <TableHead>Nama</TableHead>
-                                    <TableHead>Slug</TableHead>
+                                    <TableHead>
+                                        <Button variant={'ghost'} className='inline-flex group' onClick={() => onSortTable('name')}>
+                                            Name
+                                            <span className='flex-none ml-2 rounded text-muted-foreground'>
+                                                <ArrowDownUpIcon />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    <TableHead>
+                                        <Button variant={'ghost'} className='inline-flex group' onClick={() => onSortTable('slug')}>
+                                            Slug
+                                            <span className='flex-none ml-2 rounded text-muted-foreground'>
+                                                <ArrowDownUpIcon />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    <TableHead>
+                                        <Button variant={'ghost'} className='inline-flex group' onClick={() => onSortTable('description')}>
+                                            Description
+                                            <span className='flex-none ml-2 rounded text-muted-foreground'>
+                                                <ArrowDownUpIcon />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
                                     <TableHead>Cover</TableHead>
-                                    <TableHead>Dibuat</TableHead>
+                                    <TableHead>
+                                        <Button variant={'ghost'} className='inline-flex group' onClick={() => onSortTable('created_at')}>
+                                            Dibuat pada
+                                            <span className='flex-none ml-2 rounded text-muted-foreground'>
+                                                <ArrowDownUpIcon />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
                                     <TableHead>Aksi</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {categories.data.length > 0 ? (
-                                    categories.data.map((category, index) => (
+                                {categoryList.length > 0 ? (
+                                    categoryList.map((category, index) => (
                                         <TableRow key={index}>
-                                            <TableHead>{index + 1}</TableHead>
+                                            <TableHead>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableHead>
                                             <TableHead>{category.name}</TableHead>
                                             <TableHead>{category.slug}</TableHead>
+                                            <TableHead>{category.description}</TableHead>
                                             <TableHead>
                                                 <Avatar>
                                                     <AvatarImage src={category.cover} />
@@ -109,7 +214,7 @@ export default function Index({ categories, page_settings }: propsPage) {
                                                     </Button>
 
                                                     <AlertDialog>
-                                                        <AlertDialogTrigger>
+                                                        <AlertDialogTrigger asChild className='cursor-pointer'>
                                                             <Button variant={'destructive'} size={'sm'} >
                                                                 <TrashIcon />
                                                             </Button>
@@ -124,7 +229,17 @@ export default function Index({ categories, page_settings }: propsPage) {
                                                             </AlertDialogHeader>
                                                             <AlertDialogFooter>
                                                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction>Yes, delete</AlertDialogAction>
+                                                                <AlertDialogAction onClick={() => router.delete(
+                                                                    route('admin.categories.destroy', [category]), {
+                                                                    preserveScroll: true,
+                                                                    preserveState: true,
+                                                                    onSuccess: (success) => {
+                                                                        const flash = flashMessage(success)
+                                                                        if (flash.type == 'success') toast.success(flash.message);
+                                                                        if (flash.type == 'error') toast.error(flash.message);
+                                                                    }
+                                                                }
+                                                                )}>Yes, delete</AlertDialogAction>
                                                             </AlertDialogFooter>
                                                         </AlertDialogContent>
                                                     </AlertDialog>
@@ -143,6 +258,27 @@ export default function Index({ categories, page_settings }: propsPage) {
                             </TableBody>
                         </Table>
                     </CardContent>
+                    <CardFooter className='flex flex-col items-center justify-between w-full py-2 border-t lg:flex-row'>
+                        <p className='mb-2 text-sm text-muted-foreground'>
+                            Show <span className='font-medium text-orange-500'>{meta.from ?? 0}</span> from {meta.total} kategory
+                        </p>
+                        <div className='overflow-x-auto'>
+                            {meta.has_pages && (
+                                <Pagination>
+                                    <PaginationContent className='flex flex-wrap justify-center lg:justify-end'>
+                                        {meta.links.map((link, index) => (
+                                            <PaginationItem key={index} className='mx-1 mb-1 lb:mb-0'>
+                                                <PaginationLink href={link.url} isActive={link.active}>
+                                                    {link.label}
+
+                                                </PaginationLink>
+                                            </PaginationItem>
+                                        ))}
+                                    </PaginationContent>
+                                </Pagination>
+                            )}
+                        </div>
+                    </CardFooter>
                 </Card>
             </div>
         </AppLayout>

@@ -19,6 +19,7 @@ import {
 import { ChevronRight, Dot } from 'lucide-react';
 export function NavMain({ items = [] }: { items: NavItem[] }) {
     const page = usePage();
+
     return (
         <SidebarGroup className="px-2 py-0">
             <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
@@ -28,7 +29,7 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                         <Collapsible
                             key={item.title}
                             asChild
-                            defaultOpen={page.url.includes(item.href)}
+                            defaultOpen={true}
                             className="group/collapsible"
                         >
                             <SidebarMenuItem>
@@ -36,16 +37,15 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                                     <SidebarMenuButton tooltip={item.title}>
                                         {item.icon && <item.icon />}
                                         <span>{item.title}</span>
-                                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                                     </SidebarMenuButton>
                                 </CollapsibleTrigger>
                                 <CollapsibleContent>
                                     <SidebarMenuSub>
                                         {item.items?.map((subItem) => (
                                             <SidebarMenuSubItem key={subItem.title}>
-                                                <SidebarMenuSubButton asChild isActive={subItem.href === page.url}>
+                                                <SidebarMenuSubButton asChild isActive={subItem.href.includes(page.url)}>
                                                     <a href={subItem.href}>
-                                                        <Dot />  <span>{subItem.title}</span>
+                                                        <Dot /><span>{subItem.title}</span>
                                                     </a>
                                                 </SidebarMenuSubButton>
                                             </SidebarMenuSubItem>
