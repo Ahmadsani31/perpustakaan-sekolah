@@ -20,6 +20,8 @@ import { ChevronRight, Dot } from 'lucide-react';
 export function NavMain({ items = [] }: { items: NavItem[] }) {
     const page = usePage();
 
+    const urlActive = page.url.split('/');
+
     return (
         <SidebarGroup className="px-2 py-0">
             <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
@@ -43,10 +45,10 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                                     <SidebarMenuSub>
                                         {item.items?.map((subItem) => (
                                             <SidebarMenuSubItem key={subItem.title}>
-                                                <SidebarMenuSubButton asChild isActive={subItem.href.includes(page.url)}>
-                                                    <a href={subItem.href}>
+                                                <SidebarMenuSubButton asChild isActive={subItem.href.includes(urlActive[1])}>
+                                                    <Link href={subItem.href}>
                                                         <Dot /><span>{subItem.title}</span>
-                                                    </a>
+                                                    </Link>
                                                 </SidebarMenuSubButton>
                                             </SidebarMenuSubItem>
                                         ))}

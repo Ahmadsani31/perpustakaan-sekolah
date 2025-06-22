@@ -3,9 +3,7 @@ import pkg from 'lodash';
 import { router } from '@inertiajs/react';
 
 export default function useFilter({ route, values, only, wait = 300 }: any) {
-    console.log('====================================');
-    console.log(values);
-    console.log('====================================');
+
     const { debounce, pickBy } = pkg
     const reload = useCallback(
         debounce((query: any) => {

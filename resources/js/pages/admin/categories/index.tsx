@@ -8,7 +8,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { ArrowDownUpIcon, CassetteTape, PencilIcon, PlusCircle, RefreshCwIcon, TrashIcon } from 'lucide-react';
+import { AlignCenterHorizontalIcon, ArrowDownUpIcon, CassetteTape, LoaderCircle, PencilIcon, PlusCircle, RefreshCwIcon, TrashIcon } from 'lucide-react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -33,6 +33,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import TableLoader from '@/components/table-loader';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -90,6 +91,7 @@ export default function Index({ categories, page_settings, state }: propsPage) {
     const { data: categoryList, meta } = categories;
 
     const [params, setParams] = useState(state)
+    const [tableLoad, setTableLoad] = useState(false)
 
     const onSortTable = (field: any) => {
         setParams({
@@ -98,6 +100,10 @@ export default function Index({ categories, page_settings, state }: propsPage) {
             direction: params.direction === 'asc' ? 'desc' : 'asc'
 
         })
+    }
+
+    const onHendlerParams = () => {
+
     }
 
     useFilter({
@@ -112,9 +118,9 @@ export default function Index({ categories, page_settings, state }: propsPage) {
             {/* <div className="p-3 bg-amber-100">
                 <HeadingSmall title={page_settings.title} description={page_settings.subtitle} />
             </div> */}
-            <div className='flex flex-col w-full pb-32  px-4 py-2'>
-                <div className='flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center'>
-                    <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />
+            <div className='flex flex-col w-full px-4 py-2'>
+                <div className='flex flex-col items-start justify-between mb-4 gap-y-4 lg:flex-row lg:items-center'>
+                    <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />
 
                     <Button variant={'outline'} size={'lg'} asChild >
                         <Link href={route('admin.categories.create')}>
@@ -186,76 +192,79 @@ export default function Index({ categories, page_settings, state }: propsPage) {
                                     <TableHead>Aksi</TableHead>
                                 </TableRow>
                             </TableHeader>
-                            <TableBody>
-                                {categoryList.length > 0 ? (
-                                    categoryList.map((category, index) => (
-                                        <TableRow key={index}>
-                                            <TableHead>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableHead>
-                                            <TableHead>{category.name}</TableHead>
-                                            <TableHead>{category.slug}</TableHead>
-                                            <TableHead>{category.description}</TableHead>
-                                            <TableHead>
-                                                <Avatar>
-                                                    <AvatarImage src={category.cover} />
-                                                    <AvatarFallback>{category.name.substring(0, 1)}</AvatarFallback>
-                                                    {/* <img src={category.cover} alt={category.name} width={40} height={40} /> */}
-                                                </Avatar>
-                                            </TableHead>
-                                            <TableHead>{category.created_at}</TableHead>
-                                            <TableHead>
-                                                {/* Add action buttons/links here */}
-                                                <div className='flex items-center gap-x-1'>
+                            {tableLoad ? (<TableLoader rows={5} columns={7} />) : (
+
+                                <TableBody>
+                                    {categoryList.length > 0 ? (
+                                        categoryList.map((category, index) => (
+                                            <TableRow key={index}>
+                                                <TableHead>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableHead>
+                                                <TableHead>{category.name}</TableHead>
+                                                <TableHead>{category.slug}</TableHead>
+                                                <TableHead>{category.description}</TableHead>
+                                                <TableHead>
+                                                    <Avatar>
+                                                        <AvatarImage src={category.cover} />
+                                                        <AvatarFallback>{category.name.substring(0, 1)}</AvatarFallback>
+                                                        {/* <img src={category.cover} alt={category.name} width={40} height={40} /> */}
+                                                    </Avatar>
+                                                </TableHead>
+                                                <TableHead>{category.created_at}</TableHead>
+                                                <TableHead>
+                                                    {/* Add action buttons/links here */}
+                                                    <div className='flex items-center gap-x-1'>
 
 
-                                                    <Button variant={'default'} size={'sm'} asChild >
-                                                        <Link href={route('admin.categories.edit', category.id)}>
-                                                            <PencilIcon />
-                                                        </Link>
-                                                    </Button>
+                                                        <Button variant={'default'} size={'sm'} asChild >
+                                                            <Link href={route('admin.categories.edit', category.id)}>
+                                                                <PencilIcon />
+                                                            </Link>
+                                                        </Button>
 
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger asChild className='cursor-pointer'>
-                                                            <Button variant={'destructive'} size={'sm'} >
-                                                                <TrashIcon />
-                                                            </Button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                                                                <AlertDialogDescription>
-                                                                    This action cannot be undone. This will permanently delete your account
-                                                                    and remove your data from our servers. {category.id}
-                                                                </AlertDialogDescription>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => router.delete(
-                                                                    route('admin.categories.destroy', [category]), {
-                                                                    preserveScroll: true,
-                                                                    preserveState: true,
-                                                                    onSuccess: (success) => {
-                                                                        const flash = flashMessage(success)
-                                                                        if (flash.type == 'success') toast.success(flash.message);
-                                                                        if (flash.type == 'error') toast.error(flash.message);
+                                                        <AlertDialog>
+                                                            <AlertDialogTrigger asChild className='cursor-pointer'>
+                                                                <Button variant={'destructive'} size={'sm'} >
+                                                                    <TrashIcon />
+                                                                </Button>
+                                                            </AlertDialogTrigger>
+                                                            <AlertDialogContent>
+                                                                <AlertDialogHeader>
+                                                                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                                    <AlertDialogDescription>
+                                                                        This action cannot be undone. This will permanently delete your account
+                                                                        and remove your data from our servers. {category.id}
+                                                                    </AlertDialogDescription>
+                                                                </AlertDialogHeader>
+                                                                <AlertDialogFooter>
+                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                    <AlertDialogAction onClick={() => router.delete(
+                                                                        route('admin.categories.destroy', [category]), {
+                                                                        preserveScroll: true,
+                                                                        preserveState: true,
+                                                                        onSuccess: (success) => {
+                                                                            const flash = flashMessage(success)
+                                                                            if (flash.type == 'success') toast.success(flash.message);
+                                                                            if (flash.type == 'error') toast.error(flash.message);
+                                                                        }
                                                                     }
-                                                                }
-                                                                )}>Yes, delete</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                </div>
+                                                                    )}>Yes, delete</AlertDialogAction>
+                                                                </AlertDialogFooter>
+                                                            </AlertDialogContent>
+                                                        </AlertDialog>
+                                                    </div>
 
+                                                </TableHead>
+                                            </TableRow>
+                                        ))
+                                    ) : (
+                                        <TableRow>
+                                            <TableHead colSpan={6}>
+                                                <p>kosong</p>
                                             </TableHead>
                                         </TableRow>
-                                    ))
-                                ) : (
-                                    <TableRow>
-                                        <TableHead colSpan={6}>
-                                            <p>kosong</p>
-                                        </TableHead>
-                                    </TableRow>
-                                )}
-                            </TableBody>
+                                    )}
+                                </TableBody>
+                            )}
                         </Table>
                     </CardContent>
                     <CardFooter className='flex flex-col items-center justify-between w-full py-2 border-t lg:flex-row'>

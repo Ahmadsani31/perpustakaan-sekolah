@@ -8,7 +8,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowLeft, CassetteTape, PencilIcon, PlusCircle, TrashIcon } from 'lucide-react';
+import { ArrowLeft, CassetteTape, LoaderCircle, PencilIcon, PlusCircle, TrashIcon } from 'lucide-react';
 
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -122,6 +122,7 @@ export default function Create({ page_settings }: propsPage) {
                                     Reset
                                 </Button>
                                 <Button type='submit' variant={'default'} size={'lg'} disabled={processing}>
+                                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                     Submit
                                 </Button>
                             </div>
