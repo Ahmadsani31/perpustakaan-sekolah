@@ -30,7 +30,7 @@ const mainNavItems: NavItem[] = [
             },
             {
                 title: "Penerbit",
-                href: "#",
+                href: "/admin/publishers",
                 icon: HouseIcon,
             },
             {
