@@ -20,9 +20,6 @@ export default function FormInput({ id, title, value, errors, placeholder, type,
         case "email":
             autoComplete = "email";
             break;
-        case "email":
-            autoComplete = "email";
-            break;
         default:
             autoComplete = "";
             break;

@@ -43,6 +43,7 @@ type PropsForm = {
     name: string;
     description: string;
     cover: File | null;
+    _method: string;
 };
 
 export default function Create({ page_settings }: propsPage) {
@@ -53,6 +54,7 @@ export default function Create({ page_settings }: propsPage) {
         name: '',
         description: '',
         cover: null,
+        _method: page_settings.method,
     });
 
     console.log(errors);
@@ -60,9 +62,7 @@ export default function Create({ page_settings }: propsPage) {
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        console.log(page_settings.action);
-
-        post(route(page_settings.action), {
+        post(page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {

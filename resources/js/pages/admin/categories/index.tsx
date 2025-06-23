@@ -119,7 +119,7 @@ export default function Index({ categories, page_settings, state }: propsPage) {
                 <HeadingSmall title={page_settings.title} description={page_settings.subtitle} />
             </div> */}
             <div className='flex flex-col w-full px-4 py-2'>
-                <div className='flex flex-col items-start justify-between mb-4 gap-y-4 lg:flex-row lg:items-center'>
+                <div className='flex flex-col items-start justify-between mb-4 gap-y-4 sm:flex-row sm:items-center'>
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />
 
                     <Button variant={'outline'} size={'lg'} asChild >
@@ -131,7 +131,7 @@ export default function Index({ categories, page_settings, state }: propsPage) {
                 </div>
                 <Card className='py-1 [&_td]:px-3 [&_th]:px-3'>
                     <CardHeader className='mt-3'>
-                        <div className='flex w-full flex-col gap-4 justify-between lg:flex-row lg:items-center'>
+                        <div className='flex w-full flex-col gap-4 justify-between sm:flex-row sm:items-center'>
                             <Select value={params?.load.toString()} onValueChange={(e) => setParams({ ...params, load: e })}>
                                 <SelectTrigger className='w-full sm:w-24'>
                                     <SelectValue placeholder='Load' />

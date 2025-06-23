@@ -49,7 +49,7 @@ class CategoryController extends Controller
                 'title' => 'Tambah Kategori',
                 'subtitle' => 'Buat kategori baru disini, klik simpan setelah selesai',
                 'method' => 'POST',
-                'action' => 'admin.categories.store',
+                'action' => route('admin.categories.store'),
             ],
         ]);
     }
@@ -79,7 +79,7 @@ class CategoryController extends Controller
                 'title' => 'Edit Kategori',
                 'subtitle' => 'Edit kategori baru disini, klik simpan setelah selesai',
                 'method' => 'PUT',
-                'action' => 'admin.categories.update',
+                'action' => route('admin.categories.update', $category),
             ],
             'category' => $category
         ]);
@@ -92,12 +92,13 @@ class CategoryController extends Controller
                 'name' => $name = $request->name,
                 'slug' => $name != $category->name ? str()->lower(str()->slug($name) . str()->random(4)) : $category->slug,
                 'description' => $request->description,
-                'cover' => $this->upload_file($request, $category, 'cover', 'categories'),
+                'cover' => $this->update_file($request, $category, 'cover', 'categories'),
             ]);
 
             flashMessage(MessageType::UPDATED->message('Katagori'));
             return to_route('admin.categories.index');
         } catch (\Throwable $ee) {
+            dd($ee->getMessage());
             flashMessage(MessageType::ERROR->message($ee->getMessage()), 'error');
             return back();
         }

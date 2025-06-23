@@ -44,28 +44,29 @@ type PropsForm = {
     id: number;
     name: string;
     description: string;
-    cover: File | null;
+    cover: string | File | null;
+    _method: string;
 };
 
 export default function Edit({ page_settings, category }: propsPage) {
 
     const fileInputCover = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, put, reset, errors, processing } = useForm<Required<PropsForm>>({
+    const { data, setData, post, reset, errors, processing } = useForm<Required<PropsForm>>({
         id: category.id ?? '',
         name: category.name ?? '',
         description: category.description ?? '',
         cover: null,
+        _method: page_settings.method ?? 'put',
     });
-
-    console.log(errors);
 
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        console.log(data);
-
-        put(route(page_settings.action, [category]), {
+        // console.log(data);
+        // console.log(page_settings.action);
+        // return
+        post(page_settings.action, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
@@ -99,7 +100,7 @@ export default function Edit({ page_settings, category }: propsPage) {
                 </div>
                 <Card>
                     <CardContent>
-                        <form onSubmit={onHandleSubmit} className='space-y-6'>
+                        <form onSubmit={onHandleSubmit} className='space-y-6' encType='multipart/form-data'>
                             <FormInput id='name' title="Name" type="text" placeholder='Name katagory...' value={data.name} onChange={(e) => setData('name', e.target.value)} errors={errors.name} />
                             <FormTextarea id='description' title="Description" placeholder='Masukan description... (opsional)' value={data.description} onChange={(e) => setData('description', e.target.value)} errors={errors.description} />
                             <div className='grid w-full items-center gap-1.5'>
@@ -108,13 +109,7 @@ export default function Edit({ page_settings, category }: propsPage) {
                                     id="cover"
                                     name="cover"
                                     type="file"
-                                    onChange={(e) =>
-                                        setData(
-                                            'cover',
-                                            e.target.files && e.target.files[0] ? e.target.files[0] : null
-                                        )
-                                    }
-                                    ref={fileInputCover}
+                                    onChange={(e) => setData('cover', e.target.files && e.target.files[0] ? e.target.files[0] : null)}
                                 />
                                 {errors && (
                                     <p className="text-sm m-0 text-red-500">{errors.cover}</p>

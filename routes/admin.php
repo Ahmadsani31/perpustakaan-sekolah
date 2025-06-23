@@ -9,7 +9,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('categories/create', 'create')->name('admin.categories.create');
         Route::post('categories/store', 'store')->name('admin.categories.store');
         Route::get('categories/edit/{category}', 'edit')->name('admin.categories.edit');
-        Route::put('categories/edit/{category}', 'update')->name('admin.categories.update');
+        Route::put('categories/update/{category}', 'update')->name('admin.categories.update');
         Route::delete('categories/destroy/{category}', 'destroy')->name('admin.categories.destroy');
     });
 });
