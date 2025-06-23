@@ -86,9 +86,9 @@ export default function Create({ page_settings }: propsPage) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Tambah Category" />
             <div className='flex flex-col w-full pb-32  px-4 py-2'>
-                <div className='flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center'>
+                <div className='flex flex-col items-start justify-between mb-8 gap-y-4 md:flex-row md:items-center'>
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />
-                    <Button variant={'destructive'} size={'lg'} asChild >
+                    <Button variant={'warning'} size={'lg'} asChild >
                         <Link href={route('admin.categories.index')}>
                             <ArrowLeft /> Back
                         </Link>

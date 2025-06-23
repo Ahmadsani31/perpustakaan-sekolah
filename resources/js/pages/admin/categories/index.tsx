@@ -8,7 +8,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { AlignCenterHorizontalIcon, ArrowDownUpIcon, CassetteTape, LoaderCircle, PencilIcon, PlusCircle, RefreshCwIcon, TrashIcon } from 'lucide-react';
+import { AlignCenterHorizontalIcon, ArrowDownUpIcon, CassetteTape, LoaderCircle, PencilIcon, PlusCircle, RefreshCwIcon, Settings, TrashIcon } from 'lucide-react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -102,10 +102,6 @@ export default function Index({ categories, page_settings, state }: propsPage) {
         })
     }
 
-    const onHendlerParams = () => {
-
-    }
-
     useFilter({
         route: route('admin.categories.index'),
         values: params,
@@ -122,7 +118,7 @@ export default function Index({ categories, page_settings, state }: propsPage) {
                 <div className='flex flex-col items-start justify-between mb-4 gap-y-4 sm:flex-row sm:items-center'>
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />
 
-                    <Button variant={'outline'} size={'lg'} asChild >
+                    <Button variant={'primary'} size={'lg'} asChild >
                         <Link href={route('admin.categories.create')}>
                             <PlusCircle /> Tambah
                         </Link>
