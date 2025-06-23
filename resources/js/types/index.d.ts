@@ -15,12 +15,24 @@ export interface NavGroup {
     items: NavItem[];
 }
 
+// export interface NavItem {
+//     title: string;
+//     href: string;
+//     icon?: LucideIcon | null;
+//     isActive?: boolean;
+//     items?: NavItemSub[]
+// }
+
 export interface NavItem {
+    header?: string;
+    menu: NavItemSub[];
+}
+
+export interface NavItemSub {
     title: string;
     href: string;
     icon?: LucideIcon | null;
     isActive?: boolean;
-    items?: NavItemSub[]
 }
 
 export interface SharedData {

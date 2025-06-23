@@ -4,45 +4,51 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, CookieIcon } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, CookieIcon, BookIcon, HouseIcon, CassetteTapeIcon, LucideIcon, SettingsIcon, User2, User2Icon } from 'lucide-react';
 import AppLogo from './app-logo';
+
+
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        href: '/dashboard',
-        icon: CookieIcon,
-
+        header: 'Dashboard',
+        menu: [
+            {
+                title: 'Dashboard',
+                href: '/dashboard',
+                icon: CookieIcon,
+            }
+        ]
     },
     {
-        title: 'Master',
-        href: 'master',
-        isActive: true,
-        icon: LayoutGrid,
-        items: [
+        header: 'Master',
+        menu: [
             {
                 title: "Catagory",
                 href: "/admin/categories",
+                icon: CassetteTapeIcon,
             },
             {
-                title: "Roles",
-                href: "/master/roles",
+                title: "Penerbit",
+                href: "#",
+                icon: HouseIcon,
             },
             {
-                title: "Permission",
-                href: "/master/permission",
+                title: "Buku",
+                href: "#",
+                icon: BookIcon,
+            },
+            {
+                title: "Pengguna",
+                href: "#",
+                icon: User2Icon,
+            },
+            {
+                title: "Pengaturan Denda",
+                href: "#",
+                icon: SettingsIcon,
             }
         ],
-    },
-    {
-        title: 'Organizations',
-        href: '/organizations',
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Categories',
-        href: '/categories',
-        icon: LayoutGrid,
     },
 ];
 

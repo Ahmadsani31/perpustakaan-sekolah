@@ -20,10 +20,13 @@ export default function AuthSplitLayout({ children, title, description }: PropsW
                     {name}
                 </Link>
                 {quote && (
-                    <div className="relative z-20 mt-auto">
-                        <blockquote className="space-y-2">
-                            <p className="text-lg">&ldquo;{quote.message}&rdquo;</p>
-                            <footer className="text-sm text-neutral-300">{quote.author}</footer>
+                    <div className="z-20 mt-auto">
+                        <blockquote className="">
+                            <p className="text-lg bg-gray-700/75 px-2 py-1 rounded-md">&ldquo;{quote.message}&rdquo;</p>
+                            <br />
+                            <footer className="text-sm text-neutral-300">
+                                <span className="font-semibold bg-gray-700/75 px-2 py-1 rounded-md">{quote.author}</span>
+                            </footer>
                         </blockquote>
                     </div>
                 )}
