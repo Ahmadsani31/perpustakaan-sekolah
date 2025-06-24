@@ -34,6 +34,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import TableLoader from '@/components/table-loader';
+import { propsPage } from '@/types/publisher';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -46,51 +47,10 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface propsPage {
-    publishers: {
-        data: itemPublisher[]
-        meta: {
-            from: number;
-            total: number;
-            current_page: number;
-            per_page: number;
-            has_pages: boolean;
-            links: {
-                url: string,
-                label: string,
-                active: boolean
-            }[]
-        }
-    },
-    page_settings: {
-        title: string;
-        subtitle: string;
-    },
-    state: {
-        page: number;
-        search: string;
-        load: string;
-        field: string;
-        direction: string;
-    }
-}
-
-type itemPublisher = {
-    id: number;
-    name: string;
-    slug: string;
-    address: string;
-    email: string;
-    phone: string;
-    logo: string;
-    created_at: string;
-}
 
 export default function Index({ publishers, page_settings, state }: propsPage) {
 
-
-
-    const { data: categoryList, meta } = publishers;
+    const { data: publisherList, meta } = publishers;
 
     const [params, setParams] = useState(state)
     const [tableLoad, setTableLoad] = useState(false)
@@ -210,29 +170,29 @@ export default function Index({ publishers, page_settings, state }: propsPage) {
                             {tableLoad ? (<TableLoader rows={5} columns={7} />) : (
 
                                 <TableBody>
-                                    {categoryList.length > 0 ? (
-                                        categoryList.map((category, index) => (
+                                    {publisherList.length > 0 ? (
+                                        publisherList.map((publisher, index) => (
                                             <TableRow key={index}>
                                                 <TableHead>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableHead>
-                                                <TableHead>{category.name}</TableHead>
-                                                <TableHead>{category.email}</TableHead>
-                                                <TableHead>{category.address}</TableHead>
-                                                <TableHead>{category.phone}</TableHead>
+                                                <TableHead>{publisher.name}</TableHead>
+                                                <TableHead>{publisher.email}</TableHead>
+                                                <TableHead>{publisher.address}</TableHead>
+                                                <TableHead>{publisher.phone}</TableHead>
                                                 <TableHead>
                                                     <Avatar>
-                                                        <AvatarImage src={category.logo} />
-                                                        <AvatarFallback>{category.name.substring(0, 1)}</AvatarFallback>
+                                                        <AvatarImage src={publisher.logo} />
+                                                        <AvatarFallback>{publisher.name.substring(0, 1)}</AvatarFallback>
                                                         {/* <img src={category.cover} alt={category.name} width={40} height={40} /> */}
                                                     </Avatar>
                                                 </TableHead>
-                                                <TableHead>{category.created_at}</TableHead>
+                                                <TableHead>{publisher.created_at}</TableHead>
                                                 <TableHead>
                                                     {/* Add action buttons/links here */}
                                                     <div className='flex items-center gap-x-1'>
 
 
                                                         <Button variant={'default'} size={'sm'} asChild >
-                                                            <Link href={route('admin.categories.edit', category.id)}>
+                                                            <Link href={route('admin.publishers.edit', publisher.id)}>
                                                                 <PencilIcon />
                                                             </Link>
                                                         </Button>
@@ -248,13 +208,13 @@ export default function Index({ publishers, page_settings, state }: propsPage) {
                                                                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                                                     <AlertDialogDescription>
                                                                         This action cannot be undone. This will permanently delete your account
-                                                                        and remove your data from our servers. {category.id}
+                                                                        and remove your data from our servers. {publisher.id}
                                                                     </AlertDialogDescription>
                                                                 </AlertDialogHeader>
                                                                 <AlertDialogFooter>
                                                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                                     <AlertDialogAction onClick={() => router.delete(
-                                                                        route('admin.publishers.destroy', [category]), {
+                                                                        route('admin.publishers.destroy', [publisher]), {
                                                                         preserveScroll: true,
                                                                         preserveState: true,
                                                                         onSuccess: (success) => {

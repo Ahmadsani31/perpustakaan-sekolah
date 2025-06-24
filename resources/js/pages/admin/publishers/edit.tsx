@@ -17,6 +17,7 @@ import { FormEventHandler, useRef } from 'react';
 import FormTextarea from '@/components/form-textarea';
 import { flashMessage } from '@/lib/utils';
 import { toast } from 'react-toastify';
+import { propsPageEdit, publishersForm } from '@/types/publisher';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,35 +30,17 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface propsPage {
-    category: PropsForm,
-    page_settings: {
-        title: string;
-        subtitle: string;
-        method: string;
-        action: string;
-    }
-}
-
-
-type PropsForm = {
-    id: number;
-    name: string;
-    description: string;
-    cover: string | File | null;
-    _method: string;
-};
-
-export default function Edit({ page_settings, category }: propsPage) {
+export default function Edit({ page_settings, publisher }: propsPageEdit) {
 
     const fileInputCover = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, post, reset, errors, processing } = useForm<Required<PropsForm>>({
-        id: category.id ?? '',
-        name: category.name ?? '',
-        description: category.description ?? '',
-        cover: null,
-        _method: page_settings.method ?? 'put',
+    const { data, setData, post, reset, errors, processing } = useForm<Required<publishersForm>>({
+        name: publisher.name,
+        address: publisher.address,
+        email: publisher.email,
+        phone: publisher.phone,
+        logo: null,
+        _method: page_settings.method,
     });
 
     const onHandleSubmit: FormEventHandler = (e) => {
@@ -93,26 +76,34 @@ export default function Edit({ page_settings, category }: propsPage) {
                 <div className='flex flex-col items-start justify-between mb-8 gap-y-4 md:flex-row md:items-center'>
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />
                     <Button variant={'warning'} size={'lg'} asChild >
-                        <Link href={route('admin.categories.index')}>
+                        <Link href={route('admin.publishers.index')}>
                             <ArrowLeft /> Back
                         </Link>
                     </Button>
                 </div>
                 <Card>
                     <CardContent>
-                        <form onSubmit={onHandleSubmit} className='space-y-6' encType='multipart/form-data'>
-                            <FormInput id='name' title="Name" type="text" placeholder='Name katagory...' value={data.name} onChange={(e) => setData('name', e.target.value)} errors={errors.name} />
-                            <FormTextarea id='description' title="Description" placeholder='Masukan description... (opsional)' value={data.description} onChange={(e) => setData('description', e.target.value)} errors={errors.description} />
+                        <form onSubmit={onHandleSubmit} className='space-y-6'>
+                            <FormInput id='name' title="Name" type="text" placeholder='Name publisher...' value={data.name} onChange={(e) => setData('name', e.target.value)} errors={errors.name} />
+                            <FormInput id='email' title="Email" type="text" placeholder='Email...' value={data.email} onChange={(e) => setData('email', e.target.value)} errors={errors.email} />
+                            <FormInput id='phone' title="No Handphone" type="number" placeholder='No handphone...' value={data.phone.replace(/\D/g, '')} onChange={(e) => setData('phone', e.target.value)} errors={errors.phone} />
+                            <FormTextarea id='address' title="Address" placeholder='Alamat... (opsional)' value={data.address} onChange={(e) => setData('address', e.target.value)} errors={errors.address} />
                             <div className='grid w-full items-center gap-1.5'>
-                                <Label htmlFor='cover'>Cover</Label>
+                                <Label htmlFor='cover'>Logo</Label>
                                 <Input
                                     id="cover"
                                     name="cover"
                                     type="file"
-                                    onChange={(e) => setData('cover', e.target.files && e.target.files[0] ? e.target.files[0] : null)}
+                                    onChange={(e) =>
+                                        setData(
+                                            'logo',
+                                            e.target.files && e.target.files[0] ? e.target.files[0] : null
+                                        )
+                                    }
+                                    ref={fileInputCover}
                                 />
                                 {errors && (
-                                    <p className="text-sm m-0 text-red-500">{errors.cover}</p>
+                                    <p className="text-sm m-0 text-red-500">{errors.logo}</p>
                                 )}
                             </div>
                             <div className='flex justify-end gap-x-2'>

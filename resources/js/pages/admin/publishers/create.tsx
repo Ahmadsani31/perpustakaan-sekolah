@@ -17,6 +17,7 @@ import { FormEventHandler, useRef } from 'react';
 import FormTextarea from '@/components/form-textarea';
 import { flashMessage } from '@/lib/utils';
 import { toast } from 'react-toastify';
+import { propsPageCreate, publishersForm } from '@/types/publisher';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,30 +30,14 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface propsPage {
-    page_settings: {
-        title: string;
-        subtitle: string;
-        method: string;
-        action: string;
-    }
-}
+export default function Create({ page_settings }: propsPageCreate) {
 
+    console.log(page_settings);
 
-type PropsForm = {
-    name: string;
-    email: string;
-    address: string;
-    phone: string;
-    logo: File | null;
-    _method: string;
-};
-
-export default function Create({ page_settings }: propsPage) {
 
     const fileInputCover = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, post, reset, errors, processing } = useForm<Required<PropsForm>>({
+    const { data, setData, post, reset, errors, processing } = useForm<Required<publishersForm>>({
         name: '',
         address: '',
         email: '',
@@ -65,6 +50,9 @@ export default function Create({ page_settings }: propsPage) {
 
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
+
+        console.log(page_settings.action);
+
 
         post(page_settings.action, {
             preserveScroll: true,
@@ -102,8 +90,8 @@ export default function Create({ page_settings }: propsPage) {
                     <CardContent>
                         <form onSubmit={onHandleSubmit} className='space-y-6'>
                             <FormInput id='name' title="Name" type="text" placeholder='Name publisher...' value={data.name} onChange={(e) => setData('name', e.target.value)} errors={errors.name} />
-                            <FormInput id='email' title="Email" type="text" placeholder='Email...' value={data.name} onChange={(e) => setData('name', e.target.value)} errors={errors.name} />
-                            <FormInput id='phone' title="No Handphone" type="number" placeholder='No handphone...' value={data.name} onChange={(e) => setData('name', e.target.value)} errors={errors.name} />
+                            <FormInput id='email' title="Email" type="text" placeholder='Email...' value={data.email} onChange={(e) => setData('email', e.target.value)} errors={errors.email} />
+                            <FormInput id='phone' title="No Handphone" type="number" placeholder='No handphone...' value={data.phone} onChange={(e) => setData('phone', e.target.value)} errors={errors.phone} />
                             <FormTextarea id='address' title="Address" placeholder='Alamat... (opsional)' value={data.address} onChange={(e) => setData('address', e.target.value)} errors={errors.address} />
                             <div className='grid w-full items-center gap-1.5'>
                                 <Label htmlFor='cover'>Logo</Label>
