@@ -98,7 +98,7 @@ export default function Create({ page_settings }: propsPage) {
                     <CardContent>
                         <form onSubmit={onHandleSubmit} className='space-y-6'>
                             <FormInput id='name' title="Name" type="text" placeholder='Name katagory...' value={data.name} onChange={(e) => setData('name', e.target.value)} errors={errors.name} />
-                            <FormTextarea id='description' title="Description" placeholder='Masukan description... (opsional)' value={data.description} onChange={(e) => setData('description', e.target.value)} errors={errors.description} />
+                            <FormTextarea id='description' title="Description" placeholder='Masukan keterangan... (opsional)' value={data.description} onChange={(e) => setData('description', e.target.value)} errors={errors.description} />
                             <div className='grid w-full items-center gap-1.5'>
                                 <Label htmlFor='cover'>Cover</Label>
                                 <Input

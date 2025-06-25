@@ -91,6 +91,7 @@ export default function Edit({ page_settings, publisher }: propsPageEdit) {
                             <div className='grid w-full items-center gap-1.5'>
                                 <Label htmlFor='cover'>Logo</Label>
                                 <Input
+                                    className='cursor-pointer'
                                     id="cover"
                                     name="cover"
                                     type="file"
