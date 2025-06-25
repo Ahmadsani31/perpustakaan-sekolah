@@ -4,7 +4,7 @@ import { Label } from './ui/label'
 type itemsProps = {
     id: string
     title: string
-    value?: string
+    value?: any
     placeholder: string
     type: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -33,11 +33,12 @@ export default function FormInput({ id, title, value, errors, placeholder, type,
                 id={id}
                 type={type}
                 placeholder={placeholder}
-                value={value}
+                value={value !== undefined ? String(value) : ''}
                 onChange={onChange}
                 autoComplete={autoComplete}
                 className={cn(errors ? "border-red-500" : "")}
                 required={required}
+                min={0}
             />
             {errors && (
                 <p className="text-sm m-0 text-red-500">{errors}</p>

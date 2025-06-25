@@ -112,6 +112,7 @@ class PublisherController extends Controller
             $publisher->delete();
             $this->delete_file($publisher, 'logo');
             flashMessage(MessageType::DELETED->message('Publisher'));
+            return back();
         } catch (\Throwable $ee) {
             flashMessage(MessageType::ERROR->message($ee->getMessage()), 'error');
             return back();

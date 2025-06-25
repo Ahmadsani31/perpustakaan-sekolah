@@ -1,0 +1,42 @@
+import { Label } from './ui/label'
+import Select from 'react-select'
+type itemsProps = {
+    id: string
+    title: string
+    value?: string
+    placeholder: string
+    dataValue: any[]
+    onValueChange: (value: string) => void
+    errors?: string
+    required?: boolean
+}
+
+export default function ReactSelect({ id, title, dataValue, value, errors, placeholder, onValueChange, required }: itemsProps) {
+
+    return (
+        <div className='grid w-full items-center gap-1.5'>
+            <Label htmlFor={id}>
+                {title}
+            </Label>
+            <Select
+                defaultValue={dataValue.find((e) => e.value == value)}
+                options={dataValue}
+                placeholder={placeholder}
+                onChange={(selected) => onValueChange(selected ? selected.value : '')}
+                isClearable
+                isSearchable
+                required={required}
+                styles={{
+                    control: (baseStyles, state) => ({
+                        ...baseStyles,
+                        borderColor: errors ? 'red' : 'gray',
+                        fontSize: '14px',
+                    }),
+                }}
+            />
+            {errors && (
+                <p className="text-sm m-0 text-red-500">{errors}</p>
+            )}
+        </div>
+    )
+}

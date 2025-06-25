@@ -1,6 +1,4 @@
 import HeaderTitle from '@/components/header-title';
-import Heading from '@/components/heading';
-import HeadingSmall from '@/components/heading-small';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -34,6 +32,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import TableLoader from '@/components/table-loader';
+import { propsPage } from '@/types/book';
+import DatatableHead from '@/components/datatable-head';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -41,54 +41,17 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
     {
-        title: 'Category',
+        title: 'Buku',
         href: '#',
     },
 ];
 
-interface propsPage {
-    categories: {
-        data: itemCategory[]
-        meta: {
-            from: number;
-            total: number;
-            current_page: number;
-            per_page: number;
-            has_pages: boolean;
-            links: {
-                url: string,
-                label: string,
-                active: boolean
-            }[]
-        }
-    },
-    page_settings: {
-        title: string;
-        subtitle: string;
-    },
-    state: {
-        page: number;
-        search: string;
-        load: string;
-        field: string;
-        direction: string;
-    }
-}
 
-type itemCategory = {
-    id: number;
-    name: string;
-    slug: string;
-    description: string;
-    cover: string;
-    created_at: string;
-}
+export default function Index({ books, page_settings, state }: propsPage) {
 
-export default function Index({ categories, page_settings, state }: propsPage) {
+    console.log('books', books);
 
-
-
-    const { data: categoryList, meta } = categories;
+    const { data: bookList, meta } = books;
 
     const [params, setParams] = useState(state)
     const [tableLoad, setTableLoad] = useState(false)
@@ -103,9 +66,9 @@ export default function Index({ categories, page_settings, state }: propsPage) {
     }
 
     useFilter({
-        route: route('admin.categories.index'),
+        route: route('admin.books.index'),
         values: params,
-        only: ['categories']
+        only: ['books']
     });
 
     return (
@@ -119,7 +82,7 @@ export default function Index({ categories, page_settings, state }: propsPage) {
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />
 
                     <Button variant={'primary'} size={'lg'} asChild >
-                        <Link href={route('admin.categories.create')}>
+                        <Link href={route('admin.books.create')}>
                             <PlusCircle /> Tambah
                         </Link>
                     </Button>
@@ -151,68 +114,87 @@ export default function Index({ categories, page_settings, state }: propsPage) {
                         <Table className='w-full'>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>No</TableHead>
-                                    <TableHead>
-                                        <Button variant={'ghost'} className='inline-flex group' onClick={() => onSortTable('name')}>
-                                            Name
-                                            <span className='flex-none ml-2 rounded text-muted-foreground'>
-                                                <ArrowDownUpIcon />
-                                            </span>
-                                        </Button>
-                                    </TableHead>
-                                    <TableHead>
-                                        <Button variant={'ghost'} className='inline-flex group' onClick={() => onSortTable('slug')}>
-                                            Slug
-                                            <span className='flex-none ml-2 rounded text-muted-foreground'>
-                                                <ArrowDownUpIcon />
-                                            </span>
-                                        </Button>
-                                    </TableHead>
-                                    <TableHead>
-                                        <Button variant={'ghost'} className='inline-flex group' onClick={() => onSortTable('description')}>
-                                            Description
-                                            <span className='flex-none ml-2 rounded text-muted-foreground'>
-                                                <ArrowDownUpIcon />
-                                            </span>
-                                        </Button>
-                                    </TableHead>
-                                    <TableHead>Cover</TableHead>
-                                    <TableHead>
-                                        <Button variant={'ghost'} className='inline-flex group' onClick={() => onSortTable('created_at')}>
-                                            Dibuat pada
-                                            <span className='flex-none ml-2 rounded text-muted-foreground'>
-                                                <ArrowDownUpIcon />
-                                            </span>
-                                        </Button>
-                                    </TableHead>
-                                    <TableHead>Aksi</TableHead>
+                                    <DatatableHead order={false}>
+                                        No
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('book_code')}>
+                                        Kode Buku
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('title')}>
+                                        Judul
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('author')}>
+                                        Penulis
+                                    </DatatableHead>
+                                    <DatatableHead order={false}>
+                                        Stok
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('publication_year')}>
+                                        Tahun Terbit
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('isbn')}>
+                                        ISBN
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('language')}>
+                                        Bahasa
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('number_of_pages')}>
+                                        Jumlah Halaman
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('status')}>
+                                        Status
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('price')}>
+                                        Harga
+                                    </DatatableHead>
+
+                                    <DatatableHead order={false}>Cover</DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('category_id')}>
+                                        Category
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('publisher_id')}>
+                                        Penerbit
+                                    </DatatableHead>
+                                    <DatatableHead order={true} onClick={() => onSortTable('created_at')}>
+                                        Dibuat pada
+                                    </DatatableHead>
+                                    <DatatableHead order={false}>Aksi</DatatableHead>
                                 </TableRow>
                             </TableHeader>
                             {tableLoad ? (<TableLoader rows={5} columns={7} />) : (
 
                                 <TableBody>
-                                    {categoryList.length > 0 ? (
-                                        categoryList.map((category, index) => (
+                                    {bookList.length > 0 ? (
+                                        bookList.map((book, index) => (
                                             <TableRow key={index}>
                                                 <TableHead>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableHead>
-                                                <TableHead>{category.name}</TableHead>
-                                                <TableHead>{category.slug}</TableHead>
-                                                <TableHead>{category.description}</TableHead>
+                                                <TableHead>{book.book_code}</TableHead>
+                                                <TableHead>{book.title}</TableHead>
+                                                <TableHead>{book.author}</TableHead>
+                                                <TableHead>{book.stock.total}</TableHead>
+                                                <TableHead>{book.publication_year}</TableHead>
+                                                <TableHead>{book.isbn}</TableHead>
+                                                <TableHead>{book.language}</TableHead>
+                                                <TableHead>{book.number_of_pages}</TableHead>
+                                                <TableHead>{book.status}</TableHead>
+                                                <TableHead>Rp. {book.price}</TableHead>
                                                 <TableHead>
                                                     <Avatar>
-                                                        <AvatarImage src={category.cover} />
-                                                        <AvatarFallback>{category.name.substring(0, 1)}</AvatarFallback>
+                                                        <AvatarImage src={book.cover} />
+                                                        <AvatarFallback>{book.title.substring(0, 1)}</AvatarFallback>
                                                         {/* <img src={category.cover} alt={category.name} width={40} height={40} /> */}
                                                     </Avatar>
                                                 </TableHead>
-                                                <TableHead>{category.created_at}</TableHead>
+                                                <TableHead>{book.category.name}</TableHead>
+                                                <TableHead>{book.publisher.name}</TableHead>
+                                                <TableHead>{book.created_at}</TableHead>
                                                 <TableHead>
                                                     {/* Add action buttons/links here */}
                                                     <div className='flex items-center gap-x-1'>
 
 
                                                         <Button variant={'default'} size={'sm'} asChild >
-                                                            <Link href={route('admin.categories.edit', category.id)}>
+                                                            <Link href={route('admin.books.edit', book.id)}>
                                                                 <PencilIcon />
                                                             </Link>
                                                         </Button>
@@ -228,13 +210,13 @@ export default function Index({ categories, page_settings, state }: propsPage) {
                                                                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                                                     <AlertDialogDescription>
                                                                         This action cannot be undone. This will permanently delete your account
-                                                                        and remove your data from our servers. {category.id}
+                                                                        and remove your data from our servers. {book.id}
                                                                     </AlertDialogDescription>
                                                                 </AlertDialogHeader>
                                                                 <AlertDialogFooter>
                                                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                                     <AlertDialogAction onClick={() => router.delete(
-                                                                        route('admin.categories.destroy', [category]), {
+                                                                        route('admin.books.destroy', [book]), {
                                                                         preserveScroll: true,
                                                                         preserveState: true,
                                                                         onSuccess: (success) => {

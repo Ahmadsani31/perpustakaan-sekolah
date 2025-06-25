@@ -102,7 +102,7 @@ export default function Index({ publishers, page_settings, state }: propsPage) {
                             </Select>
                             <div className='flex items-start gap-2'>
 
-                                <Input className='w-full' placeholder='cari...' value={params?.search} onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))} />
+                                <Input className='w-full' placeholder='Search...' value={params?.search} onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))} />
                                 <Button variant={'destructive'} onClick={() => setParams(state)} size={'lg'}><RefreshCwIcon /> Clear</Button>
                             </div>
 

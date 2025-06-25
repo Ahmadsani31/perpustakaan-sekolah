@@ -35,7 +35,8 @@ const mainNavItems: NavItem[] = [
             },
             {
                 title: "Buku",
-                href: "#",
+                href: '/admin/books',
+                // href: route('admin.books.index'),
                 icon: BookIcon,
             },
             {

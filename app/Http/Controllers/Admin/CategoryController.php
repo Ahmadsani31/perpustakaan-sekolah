@@ -110,6 +110,7 @@ class CategoryController extends Controller
             $category->delete();
             $this->delete_file($category, 'cover');
             flashMessage(MessageType::DELETED->message('Katagori'));
+            return back();
         } catch (\Throwable $ee) {
             flashMessage(MessageType::ERROR->message($ee->getMessage()), 'error');
             return back();

@@ -17,14 +17,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->foreignId('publisher_id')->constrained('publishers')->cascadeOnDelete();
-            $table->string('book_kode');
+            $table->string('book_code');
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('author');
             $table->unsignedInteger('publication_year');
             $table->string('isbn');
             $table->string('language')->default(BookLanguage::INDONESIA->value);
-            $table->string('synopsis')->nullable();
+            $table->text('synopsis')->nullable();
             $table->unsignedInteger('number_of_pages')->default(0);
             $table->string('status')->default(BookStatus::AVAILABLE->value);
             $table->string('cover')->nullable();

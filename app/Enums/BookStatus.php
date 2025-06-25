@@ -5,7 +5,7 @@ namespace App\Enums;
 enum BookStatus: string
 {
     case AVAILABLE = 'Tersedia';
-    case UNVAILABLE = 'Tidak Tersedia';
+    case UNAVAILABLE = 'Tidak Tersedia';
     case LOAN = 'Dipinjam';
     case LOST = 'Hilang';
     case DEMAGED = 'Rusak';
