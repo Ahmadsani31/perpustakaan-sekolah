@@ -17,6 +17,7 @@ import { FormEventHandler, useRef } from 'react';
 import FormTextarea from '@/components/form-textarea';
 import { flashMessage } from '@/lib/utils';
 import { toast } from 'react-toastify';
+import FormInputFile from '@/components/form-input-file';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -56,8 +57,6 @@ export default function Create({ page_settings }: propsPage) {
         cover: null,
         _method: page_settings.method,
     });
-
-    console.log(errors);
 
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -99,25 +98,13 @@ export default function Create({ page_settings }: propsPage) {
                         <form onSubmit={onHandleSubmit} className='space-y-6'>
                             <FormInput id='name' title="Name" type="text" placeholder='Name katagory...' value={data.name} onChange={(e) => setData('name', e.target.value)} errors={errors.name} />
                             <FormTextarea id='description' title="Description" placeholder='Masukan keterangan... (opsional)' value={data.description} onChange={(e) => setData('description', e.target.value)} errors={errors.description} />
-                            <div className='grid w-full items-center gap-1.5'>
-                                <Label htmlFor='cover'>Cover</Label>
-                                <Input
-                                    className='cursor-pointer'
-                                    id="cover"
-                                    name="cover"
-                                    type="file"
-                                    onChange={(e) =>
-                                        setData(
-                                            'cover',
-                                            e.target.files && e.target.files[0] ? e.target.files[0] : null
-                                        )
-                                    }
-                                    ref={fileInputCover}
-                                />
-                                {errors && (
-                                    <p className="text-sm m-0 text-red-500">{errors.cover}</p>
-                                )}
-                            </div>
+                            <FormInputFile id='logo' title="Logo" onChange={(e) =>
+                                setData(
+                                    'cover',
+                                    e.target.files && e.target.files[0] ? e.target.files[0] : null
+                                )
+                            } ref={fileInputCover} errors={errors.cover} />
+
                             <div className='flex justify-end gap-x-2'>
                                 <Button type='button' variant={'outline'} size={'lg'} onClick={onHandleReset}>
                                     Reset

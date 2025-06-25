@@ -18,6 +18,7 @@ import FormTextarea from '@/components/form-textarea';
 import { flashMessage } from '@/lib/utils';
 import { toast } from 'react-toastify';
 import { propsPageEdit, publishersForm } from '@/types/publisher';
+import FormInputFile from '@/components/form-input-file';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -88,25 +89,13 @@ export default function Edit({ page_settings, publisher }: propsPageEdit) {
                             <FormInput id='email' title="Email" type="text" placeholder='Email...' value={data.email} onChange={(e) => setData('email', e.target.value)} errors={errors.email} />
                             <FormInput id='phone' title="No Handphone" type="number" placeholder='No handphone...' value={data.phone.replace(/\D/g, '')} onChange={(e) => setData('phone', e.target.value)} errors={errors.phone} />
                             <FormTextarea id='address' title="Address" placeholder='Alamat... (opsional)' value={data.address} onChange={(e) => setData('address', e.target.value)} errors={errors.address} />
-                            <div className='grid w-full items-center gap-1.5'>
-                                <Label htmlFor='cover'>Logo</Label>
-                                <Input
-                                    className='cursor-pointer'
-                                    id="cover"
-                                    name="cover"
-                                    type="file"
-                                    onChange={(e) =>
-                                        setData(
-                                            'logo',
-                                            e.target.files && e.target.files[0] ? e.target.files[0] : null
-                                        )
-                                    }
-                                    ref={fileInputCover}
-                                />
-                                {errors && (
-                                    <p className="text-sm m-0 text-red-500">{errors.logo}</p>
-                                )}
-                            </div>
+                            <FormInputFile id='logo' title="Logo" onChange={(e) =>
+                                setData(
+                                    'logo',
+                                    e.target.files && e.target.files[0] ? e.target.files[0] : null
+                                )
+                            } ref={fileInputCover} errors={errors.name} />
+
                             <div className='flex justify-end gap-x-2'>
                                 <Button type='button' variant={'outline'} size={'lg'} onClick={onHandleReset}>
                                     Reset

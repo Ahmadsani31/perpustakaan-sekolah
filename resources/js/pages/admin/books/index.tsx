@@ -49,8 +49,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index({ books, page_settings, state }: propsPage) {
 
-    console.log('books', books);
-
     const { data: bookList, meta } = books;
 
     const [params, setParams] = useState(state)

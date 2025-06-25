@@ -23,6 +23,7 @@ import FormSelectTahun from '@/components/form-select-tahun';
 import FormSelect from '@/components/form-select';
 import ReactSelect from '@/components/react-select';
 import ReactSelectTahun from '@/components/react-select-tahun';
+import FormInputFile from '@/components/form-input-file';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -56,8 +57,6 @@ export default function Create({ page_settings, page_data }: propsPageCreate) {
         _method: page_settings.method,
     });
 
-    console.log(errors);
-
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
@@ -79,9 +78,6 @@ export default function Create({ page_settings, page_data }: propsPageCreate) {
             fileInputCover.current.value = '';
         }
     }
-
-    console.log('data', data);
-
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -116,25 +112,14 @@ export default function Create({ page_settings, page_data }: propsPageCreate) {
                                 <ReactSelect id='publisher' title='Penerbit' dataValue={page_data.publishers} value={data.category_id?.toString()} onValueChange={(value) => setData('publisher_id', value ? Number(value) : null)} placeholder='Pilih Penerbit' errors={errors.publisher_id} />
                             </div>
                             {/* <FormSelect id='publisher' title='Penerbit' dataValue={page_data.publishers} value={data.publisher?.toString()} onValueChange={(value) => setData('publisher', value ? Number(value) : null)} placeholder='Pilih Penerbit' /> */}
-                            <div className='grid w-full items-center gap-1.5'>
-                                <Label htmlFor='cover'>Cover</Label>
-                                <Input
-                                    className='cursor-pointer'
-                                    id="cover"
-                                    name="cover"
-                                    type="file"
-                                    onChange={(e) =>
-                                        setData(
-                                            'cover',
-                                            e.target.files && e.target.files[0] ? e.target.files[0] : null
-                                        )
-                                    }
-                                    ref={fileInputCover}
-                                />
-                                {errors && (
-                                    <p className="text-sm m-0 text-red-500">{errors.cover}</p>
-                                )}
-                            </div>
+
+                            <FormInputFile id='cover' title="Cover" onChange={(e) =>
+                                setData(
+                                    'cover',
+                                    e.target.files && e.target.files[0] ? e.target.files[0] : null
+                                )
+                            } ref={fileInputCover} errors={errors.cover} />
+
                             <div className='flex justify-end gap-x-2'>
                                 <Button type='button' variant={'outline'} size={'lg'} onClick={onHandleReset}>
                                     Reset
