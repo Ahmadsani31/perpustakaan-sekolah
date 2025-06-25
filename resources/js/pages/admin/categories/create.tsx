@@ -102,6 +102,7 @@ export default function Create({ page_settings }: propsPage) {
                             <div className='grid w-full items-center gap-1.5'>
                                 <Label htmlFor='cover'>Cover</Label>
                                 <Input
+                                    className='cursor-pointer'
                                     id="cover"
                                     name="cover"
                                     type="file"
