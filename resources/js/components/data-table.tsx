@@ -25,6 +25,8 @@ import { Button } from "@/components/ui/button";
 
 import { ArrowUpDown, ChevronDown, CircleXIcon, X } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "./ui/pagination";
+import getPaginationRange from "@/lib/pagination";
 
 interface DataTableProps<TData> {
     columns: ColumnDef<TData>[];
@@ -146,6 +148,10 @@ export function DataTable<TData>({
     const from = pageIndex * pageSize + 1;
     const to = Math.min(from + pageSize - 1, totalEntries);
 
+    const pageCount = table.getPageCount()
+    const currentPage = table.getState().pagination.pageIndex + 1
+
+
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between mt-4">
@@ -261,27 +267,59 @@ export function DataTable<TData>({
             </div>
 
             {!isAllSelected && (
-                <div className="flex items-center justify-end space-x-2 mb-4">
+                <div className="flex flex-col items-center justify-between w-full gap-3 lg:flex-row mb-4">
                     <div className="flex-1 text-sm text-muted-foreground">
                         <p className="text-sm text-muted-foreground">
                             Showing {from} to {to} of {totalEntries} entries
                         </p>
                     </div>
                     <div className="space-x-2">
-                        <Button
-                            variant="outline"
-                            onClick={() => table.previousPage()}
-                            disabled={!table.getCanPreviousPage()}
-                        >
-                            Previous
-                        </Button>
-                        <Button
-                            variant="outline"
-                            onClick={() => table.nextPage()}
-                            disabled={!table.getCanNextPage()}
-                        >
-                            Next
-                        </Button>
+                        <Pagination>
+                            <PaginationContent>
+                                {/* Previous */}
+                                <PaginationItem>
+                                    <PaginationPrevious
+                                        href="#"
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            table.previousPage()
+                                        }}
+                                        className={table.getCanPreviousPage() ? "" : "pointer-events-none opacity-50"}
+                                    />
+                                </PaginationItem>
+
+                                {getPaginationRange(currentPage, pageCount).map((page, i) => (
+                                    <PaginationItem key={i}>
+                                        {page === "..." ? (
+                                            <PaginationEllipsis />
+                                        ) : (
+                                            <PaginationLink
+                                                href="#"
+                                                isActive={page === currentPage}
+                                                onClick={(e) => {
+                                                    e.preventDefault()
+                                                    table.setPageIndex(page - 1)
+                                                }}
+                                            >
+                                                {page}
+                                            </PaginationLink>
+                                        )}
+                                    </PaginationItem>
+                                ))}
+
+                                {/* Next */}
+                                <PaginationItem>
+                                    <PaginationNext
+                                        href="#"
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            table.nextPage()
+                                        }}
+                                        className={table.getCanNextPage() ? "" : "pointer-events-none opacity-50"}
+                                    />
+                                </PaginationItem>
+                            </PaginationContent>
+                        </Pagination>
                     </div>
                 </div>
             )}
