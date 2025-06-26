@@ -46,7 +46,7 @@ const mainNavItems: NavItem[] = [
             },
             {
                 title: "Pengaturan Denda",
-                href: "#",
+                href: "/admin/fine-settings/create",
                 icon: SettingsIcon,
             }
         ],
@@ -87,8 +87,8 @@ export function AppSidebar() {
 
             <SidebarFooter>
                 {/* <NavFooter items={footerNavItems} className="mt-auto" /> */}
-                <hr />
-                <NavUser />
+                {/* <hr /> */}
+                {/* <NavUser /> */}
             </SidebarFooter>
         </Sidebar>
     );

@@ -5,7 +5,7 @@ type itemsProps = {
     id: string
     title: string
     value?: any
-    placeholder: string
+    placeholder?: string
     type: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     errors?: string
