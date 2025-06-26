@@ -81,7 +81,7 @@ export default function Create({ page_settings, page_data }: propsPageCreate) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Tambah Category" />
+            <Head title="Tambah Buku" />
             <div className='flex flex-col w-full  px-4 py-2'>
                 <div className='flex flex-col items-start justify-between mb-8 gap-y-4 md:flex-row md:items-center'>
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />

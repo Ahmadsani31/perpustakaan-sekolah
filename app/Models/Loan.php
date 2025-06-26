@@ -19,8 +19,8 @@ class Loan extends Model
     protected function casts(): array
     {
         return [
-            'load_date' => 'date',
-            'due_date' => 'date',
+            'loan_date' => 'datetime',
+            'due_date' => 'datetime',
         ];
     }
 

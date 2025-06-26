@@ -1,11 +1,14 @@
 import HeaderTitle from '@/components/header-title';
+import Heading from '@/components/heading';
+import HeadingSmall from '@/components/heading-small';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { AlignCenterHorizontalIcon, LockKeyhole, PencilIcon, PlusCircle, TrashIcon } from 'lucide-react';
+import { AlignCenterHorizontalIcon, ArrowDownUpIcon, ArrowUpDown, CassetteTape, LoaderCircle, LockKeyhole, PencilIcon, PlusCircle, RefreshCwIcon, Settings, TrashIcon } from 'lucide-react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -20,11 +23,10 @@ import {
 import { flashMessage } from '@/lib/utils';
 import { toast } from 'react-toastify';
 
-import { Input } from '@/components/ui/input';
 
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from '@/components/data-table';
-import { Label } from '@/components/ui/label';
+import { format } from 'date-fns';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -32,128 +34,69 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
     {
-        title: 'Pengguna',
+        title: 'Peminjaman',
         href: '#',
     },
 ];
 
 interface propsPage {
-    users: {
+    loans: {
         data: itemUserIndex[]
     },
     page_settings: {
         title: string;
         subtitle: string;
-    },
-    state: {
-        page: number;
-        search: string;
-        load: string;
-        field: string;
-        direction: string;
     }
 }
 
 type itemUserIndex = {
     id: number;
-    name: string;
-    email: string;
-    address: string;
-    avatar: string;
-    gender: string;
-    date_of_birth: string;
+    user: {
+        name: string;
+    }
+    user_id: number;
+    book_id: number;
+    loan_code: string;
+    loan_date: string;
+    due_date: string;
     created_at: string;
 }
 
 export const columns: ColumnDef<itemUserIndex>[] = [
     {
-        accessorKey: "name",
+        accessorKey: "loan_code",
+        header: "Kode Peminjaman",
+    },
+    {
+        accessorKey: "user.name",
         header: "Nama",
     },
     {
-        accessorKey: "username",
-        header: "Username",
+        accessorKey: "book.title",
+        header: "Buku",
     },
     {
-        accessorKey: "email",
-        header: "Email",
+        accessorKey: "loan_date",
+        header: "Tanggal Peminjaman",
     },
     {
-        accessorKey: "phone",
-        header: "No Handphone",
-    },
-    {
-        accessorKey: "avatar",
-        header: "Avatar",
-        cell: ({ row }) => (
-            <Avatar>
-                <AvatarImage src={row.original.avatar} />
-                <AvatarFallback>{row.original.name.substring(0, 1)}</AvatarFallback>
-            </Avatar>
-        ),
-    },
-    {
-        accessorKey: "gender",
-        header: "Jenis Kelamin",
-    },
-    {
-        accessorKey: "date_of_birth",
-        header: "Tanggal Lahir",
-    },
-    {
-        accessorKey: "address",
-        header: "Alamat",
+        accessorKey: "due_date",
+        header: "Batas Pengembalian",
     },
     {
         accessorKey: "created_at",
-        header: "Joined At",
-        cell: ({ row }) => new Date(row.getValue("created_at")).toLocaleDateString(),
+        header: "Dibuat Pada",
     },
     {
         id: "actions",
         header: () => (<span className='flex justify-center'> Aksi  </span>),
         cell: ({ row }) => {
 
-            const onHandleSubmit = () => {
-
-            }
-
             return (
                 <div className='flex items-center gap-x-1'>
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild className='cursor-pointer'>
-                            <Button variant={'primary'} size={'sm'} >
-                                <LockKeyhole />
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Update Password Pengguna</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    Silahkan update password pengguna dengan memasukan password baru.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <form onSubmit={onHandleSubmit} className='space-y-6'>
-                                <div className="grid gap-4">
-                                    <div className="grid gap-3">
-                                        <Label htmlFor="name-1">Password</Label>
-                                        <Input id="name-1" name="name" placeholder='Masukan password...' />
-                                    </div>
-                                    <div className="grid gap-3">
-                                        <Label htmlFor="username-1">Konfimasi Password</Label>
-                                        <Input id="username-1" name="username" placeholder='Masukan konfirmasi password...' />
-                                    </div>
-                                </div>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction type='submit'>Update Password</AlertDialogAction>
-                                </AlertDialogFooter>
-                            </form>
 
-                        </AlertDialogContent>
-                    </AlertDialog>
                     <Button variant={'default'} size={'sm'} asChild >
-                        <Link href={route('admin.users.edit', row.original)}>
+                        <Link href={route('admin.loans.edit', row.original)}>
                             <PencilIcon />
                         </Link>
                     </Button>
@@ -174,7 +117,7 @@ export const columns: ColumnDef<itemUserIndex>[] = [
                             <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                 <AlertDialogAction onClick={() => router.delete(
-                                    route('admin.users.destroy', [row.original.id]), {
+                                    route('admin.loans.destroy', [row.original.id]), {
                                     preserveScroll: true,
                                     preserveState: true,
                                     onSuccess: (success) => {
@@ -193,13 +136,11 @@ export const columns: ColumnDef<itemUserIndex>[] = [
     },
 ]
 
-export default function Index({ users, page_settings }: propsPage) {
-
-    console.log('user', users);
+export default function Index({ loans, page_settings }: propsPage) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Users" />
+            <Head title="Peminjaman" />
             {/* <div className="p-3 bg-amber-100">
                 <HeadingSmall title={page_settings.title} description={page_settings.subtitle} />
             </div> */}
@@ -208,7 +149,7 @@ export default function Index({ users, page_settings }: propsPage) {
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />
 
                     <Button variant={'primary'} size={'lg'} asChild >
-                        <Link href={route('admin.users.create')}>
+                        <Link href={route('admin.loans.create')}>
                             <PlusCircle /> Tambah
                         </Link>
                     </Button>
@@ -218,9 +159,9 @@ export default function Index({ users, page_settings }: propsPage) {
                     <CardContent className='[&-td]:whitespace-nowrap'>
                         <DataTable
                             columns={columns}
-                            data={users.data}
-                            sortableColumns={["name", "email", "date_of_birth", "created_at"]}
-                            searchableColumns={["name", "email", "address"]}// Now searchable in name, email, and phone
+                            data={loans.data}
+                            sortableColumns={["loan_code", "loan_date", "due_date", "created_at"]}
+                            searchableColumns={["loan_code", "book_title", "user_name"]}// Now searchable in name, email, and phone
                             showIndex={true}
                             dynamicIndex={true}
                         />

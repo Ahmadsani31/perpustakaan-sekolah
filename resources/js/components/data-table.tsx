@@ -22,12 +22,7 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import { ArrowUpDown, ChevronDown, CircleXIcon, X } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
@@ -156,7 +151,7 @@ export function DataTable<TData>({
             <div className="flex items-center justify-between mt-4">
                 <div className="flex items-center w-80 space-x-2">
                     <Input
-                        placeholder={`Search in ${searchableColumns.join(", ")}...`}
+                        placeholder={`Search...`}
                         value={globalFilter ?? ""}
                         onChange={(event) => setGlobalFilter(event.target.value)}
                     />

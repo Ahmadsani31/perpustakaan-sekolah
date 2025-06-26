@@ -8,7 +8,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowLeft, CassetteTape, LoaderCircle, PencilIcon, PlusCircle, SettingsIcon, TrashIcon } from 'lucide-react';
+import { ArrowLeft, CassetteTape, LoaderCircle, PencilIcon, PlusCircle, TrashIcon } from 'lucide-react';
 
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -18,7 +18,7 @@ import FormTextarea from '@/components/form-textarea';
 import { flashMessage } from '@/lib/utils';
 import { toast } from 'react-toastify';
 import FormInputFile from '@/components/form-input-file';
-import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
+import ReactSelect from '@/components/react-select';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -32,43 +32,53 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 interface propsPage {
+    loans: {
+        id: number;
+        user_id: string;
+        book_id: string;
+    },
     page_settings: {
         title: string;
         subtitle: string;
         method: string;
         action: string;
-    },
-    fine_setting: {
-        late_fee_per_day: number,
-        damage_fee_percentage: number,
-        lost_fee_percentage: number,
+    }
+    page_data: {
+        books: {
+            value: number;
+            label: string;
+        }[],
+        users: {
+            value: number;
+            label: string;
+        }[]
     }
 }
 
 
 type PropsForm = {
-    late_fee_per_day: number;
-    damage_fee_percentage: number;
-    lost_fee_percentage: number;
+    id: number;
+    user: string;
+    book: string;
     _method: string;
 };
 
-export default function Create({ page_settings, fine_setting }: propsPage) {
-    console.log('====================================');
-    console.log(fine_setting);
-    console.log('====================================');
-    const fileInputCover = useRef<HTMLInputElement | null>(null);
+export default function Edit({ page_settings, page_data, loans }: propsPage) {
+
 
     const { data, setData, post, reset, errors, processing } = useForm<Required<PropsForm>>({
-        late_fee_per_day: fine_setting?.late_fee_per_day ?? 0,
-        damage_fee_percentage: fine_setting?.damage_fee_percentage ?? 0,
-        lost_fee_percentage: fine_setting?.lost_fee_percentage ?? 0,
-        _method: page_settings.method,
+        id: loans.id ?? '',
+        book: loans.book_id ?? '',
+        user: loans.user_id ?? '',
+        _method: page_settings.method ?? 'put',
     });
 
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
+        console.log(data);
+        // console.log(page_settings.action);
+        // return
         post(page_settings.action, {
             preserveScroll: true,
             preserveState: true,
@@ -83,26 +93,43 @@ export default function Create({ page_settings, fine_setting }: propsPage) {
 
     const onHandleReset = () => {
         reset();
-        if (fileInputCover.current) {
-            fileInputCover.current.value = '';
-        }
+
     }
 
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Tambah Category" />
+            <Head title="Edit Peminjaman" />
             <div className='flex flex-col w-full pb-32  px-4 py-2'>
                 <div className='flex flex-col items-start justify-between mb-8 gap-y-4 md:flex-row md:items-center'>
-                    <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={SettingsIcon} />
+                    <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />
+                    <Button variant={'warning'} size={'lg'} asChild >
+                        <Link href={route('admin.loans.index')}>
+                            <ArrowLeft /> Back
+                        </Link>
+                    </Button>
                 </div>
                 <Card>
                     <CardContent>
-                        <form onSubmit={onHandleSubmit} className='space-y-6'>
-                            <FormInput id='late_fee_per_day' title="Denda Keterlambatan" type="number" value={data.late_fee_per_day} onChange={(e) => setData('late_fee_per_day', Number(e.target.value))} errors={errors.late_fee_per_day} />
-                            <FormInput id='damage_fee_percentage' title="Denda Kerusakan" type="number" value={data.damage_fee_percentage} onChange={(e) => setData('damage_fee_percentage', Number(e.target.value))} errors={errors.damage_fee_percentage} />
-                            <FormInput id='lost_fee_percentage' title="Denda Hilang" type="number" value={data.lost_fee_percentage} onChange={(e) => setData('lost_fee_percentage', Number(e.target.value))} errors={errors.lost_fee_percentage} />
-
+                        <form onSubmit={onHandleSubmit} className='space-y-6' encType='multipart/form-data'>
+                            <ReactSelect
+                                id='user'
+                                title='Pengguna'
+                                dataValue={page_data.users}
+                                value={data.user?.toString()}
+                                onValueChange={(value) => setData('user', value)}
+                                placeholder='Pilih pengguna'
+                                errors={errors.user}
+                            />
+                            <ReactSelect
+                                id='book'
+                                title='Buku'
+                                dataValue={page_data.books}
+                                value={data.book?.toString()}
+                                onValueChange={(value) => setData('book', value)}
+                                placeholder='Pilih Buku'
+                                errors={errors.book}
+                            />
                             <div className='flex justify-end gap-x-2'>
                                 <Button type='button' variant={'outline'} size={'lg'} onClick={onHandleReset}>
                                     Reset

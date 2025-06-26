@@ -51,6 +51,16 @@ const mainNavItems: NavItem[] = [
             }
         ],
     },
+    {
+        header: 'Transaksi',
+        menu: [
+            {
+                title: "Peminjaman",
+                href: "/admin/loans",
+                icon: CassetteTapeIcon,
+            }
+        ],
+    },
 ];
 
 // const footerNavItems: NavItem[] = [
