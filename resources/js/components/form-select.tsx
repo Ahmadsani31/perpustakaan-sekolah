@@ -14,6 +14,11 @@ type itemsProps = {
 
 export default function FormSelect({ id, title, dataValue, value, errors, placeholder, onValueChange, required }: itemsProps) {
 
+    console.log('====================================');
+    console.log(dataValue);
+    console.log(value);
+    console.log('====================================');
+
     return (
         // <div className='grid w-full items-center gap-1.5'>
         //     <Label htmlFor={id}>
@@ -52,15 +57,15 @@ export default function FormSelect({ id, title, dataValue, value, errors, placeh
                 onValueChange={onValueChange}
                 required={required}
             >
-                <SelectTrigger>
+                <SelectTrigger className={`border ${errors ? 'border-red-500' : ''}`}>
                     <SelectValue>
-                        {dataValue.find((d) => d.value.toString() === value) ? dataValue.find((d) => d.value.toString() === value)?.name : placeholder}
+                        {dataValue.find((d) => d.value.toString() === value) ? dataValue.find((d) => d.value.toString() === value)?.value : placeholder}
                     </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                     {dataValue.map((data, index) => (
                         <SelectItem key={index} value={data.value.toString()}>
-                            {data.name}
+                            {data.label}
                         </SelectItem>
                     ))}
                 </SelectContent>

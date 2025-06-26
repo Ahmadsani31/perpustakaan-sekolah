@@ -41,7 +41,7 @@ const mainNavItems: NavItem[] = [
             },
             {
                 title: "Pengguna",
-                href: "#",
+                href: "/admin/users",
                 icon: User2Icon,
             },
             {
