@@ -31,7 +31,7 @@ class LoanController extends Controller
             'subtitle' => 'Menampilkan semua data peminjaman yang tersedia pada platform ini',
         ];
 
-        $loans = LoanResource::collection(Loan::with(['book', 'user', 'returnBook'])->get());
+        $loans = LoanResource::collection(Loan::with(['book', 'user', 'returnBook'])->latest()->get());
         return Inertia::render('admin/loans/index', compact('loans', 'page_settings'));
     }
 

@@ -2,20 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Bantuan;
-use App\Models\Program;
-use App\Notifications\UpBansos;
-use App\Repositories\BantuanRepository;
 use App\Repositories\LoanRepository;
-use App\Traits\HasFileTrait;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use Elibyy\TCPDF\Facades\TCPDF;
+
 
 class LoanService
 {

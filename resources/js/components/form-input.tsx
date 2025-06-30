@@ -25,8 +25,8 @@ export default function FormInput({ id, title, value, errors, placeholder, type,
             break;
     }
     return (
-        <div className='grid w-full items-center gap-1.5'>
-            <Label htmlFor={id}>
+        <div className='grid w-full items-center'>
+            <Label htmlFor={id} className='mb-2'>
                 {title}
             </Label>
             <Input

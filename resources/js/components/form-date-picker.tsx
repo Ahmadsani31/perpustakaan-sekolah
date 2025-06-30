@@ -1,6 +1,6 @@
 import * as React from "react"
 import { format } from "date-fns"
-import { Calendar as CalendarIcon, ChevronDownIcon } from "lucide-react"
+import { CalendarDays, Calendar as CalendarIcon, ChevronDownIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -39,7 +39,7 @@ export default function FormDatePicker({ id, title, value, errors, placeholder, 
             className="w-full justify-between font-normal rounded"
           >
             {value ? format(value, "EE MMMM dd, yyyy") : placeholder}
-            <ChevronDownIcon />
+            <CalendarDays />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto overflow-hidden p-0" align="start">

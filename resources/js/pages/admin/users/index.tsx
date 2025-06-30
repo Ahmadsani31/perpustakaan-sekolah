@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/react';
-import { AlignCenterHorizontalIcon, LockKeyhole, PencilIcon, PlusCircle, TrashIcon } from 'lucide-react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
+import { AlignCenterHorizontalIcon, LoaderCircle, LockKeyhole, PencilIcon, PlusCircle, TrashIcon } from 'lucide-react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -25,6 +25,8 @@ import { Input } from '@/components/ui/input';
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from '@/components/data-table';
 import { Label } from '@/components/ui/label';
+import { FormEventHandler, useState } from 'react';
+import FormInput from '@/components/form-input';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -114,13 +116,43 @@ export const columns: ColumnDef<itemUserIndex>[] = [
         header: () => (<span className='flex justify-center'> Aksi  </span>),
         cell: ({ row }) => {
 
-            const onHandleSubmit = () => {
+            const [dialogOpen, setDialogOpen] = useState(false);
 
-            }
+
+            const { data, setData, post, reset, errors, processing } = useForm<Required<any>>({
+                password: '',
+                password_confirmation: '',
+                _method: 'PUT'
+            });
+
+            console.log(errors);
+
+
+            const handleResetPassword: FormEventHandler = (e) => {
+                e.preventDefault();
+                console.log(data);
+
+                post(route('admin.users.update-password', [row.original]), {
+                    preserveScroll: true,
+                    preserveState: true,
+                    onSuccess: (success) => {
+                        console.log(success);
+
+                        const flash = flashMessage(success)
+
+                        if (flash.type == 'success') toast.success(flash.message);
+                        if (flash.type == 'error') toast.error(flash.message);
+                    },
+                    onFinish: visit => {
+                        console.log('finis');
+
+                    },
+                });
+            };
 
             return (
                 <div className='flex items-center gap-x-1'>
-                    <AlertDialog>
+                    <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
                         <AlertDialogTrigger asChild className='cursor-pointer'>
                             <Button variant={'primary'} size={'sm'} >
                                 <LockKeyhole />
@@ -130,25 +162,38 @@ export const columns: ColumnDef<itemUserIndex>[] = [
                             <AlertDialogHeader>
                                 <AlertDialogTitle>Update Password Pengguna</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                    Silahkan update password pengguna dengan memasukan password baru.
+                                    Silahkan update password pengguna, memasukan password baru.
                                 </AlertDialogDescription>
                             </AlertDialogHeader>
-                            <form onSubmit={onHandleSubmit} className='space-y-6'>
-                                <div className="grid gap-4">
-                                    <div className="grid gap-3">
-                                        <Label htmlFor="name-1">Password</Label>
-                                        <Input id="name-1" name="name" placeholder='Masukan password...' />
-                                    </div>
-                                    <div className="grid gap-3">
-                                        <Label htmlFor="username-1">Konfimasi Password</Label>
-                                        <Input id="username-1" name="username" placeholder='Masukan konfirmasi password...' />
-                                    </div>
+                            <form onSubmit={handleResetPassword} className='space-y-4'>
+                                <FormInput
+                                    id='password'
+                                    title="Password"
+                                    type="password"
+                                    placeholder='Masukan password...'
+                                    value={data.password}
+                                    onChange={(e) => setData('password', e.target.value)}
+                                    errors={errors.password}
+                                />
+                                <FormInput
+                                    id='password_confirmation'
+                                    title="Konfirmasi password"
+                                    type="password"
+                                    placeholder='Konfirmasi password...'
+                                    value={data.password_confirmation}
+                                    onChange={(e) => setData('password_confirmation', e.target.value)}
+                                    errors={errors.password_confirmation}
+                                />
+                                <div className='flex justify-end gap-x-2'>
+                                    <Button variant={'outline'} type='button' onClick={() => setDialogOpen(false)}>Cancel</Button>
+                                    <Button type='submit' disabled={processing}>
+                                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                                        Update Password
+                                    </Button>
                                 </div>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction type='submit'>Update Password</AlertDialogAction>
-                                </AlertDialogFooter>
+
                             </form>
+
 
                         </AlertDialogContent>
                     </AlertDialog>

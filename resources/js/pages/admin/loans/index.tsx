@@ -8,7 +8,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { AlignCenterHorizontalIcon, ArrowDownUpIcon, ArrowUpDown, CassetteTape, LoaderCircle, LockKeyhole, PencilIcon, PlusCircle, RefreshCwIcon, Settings, TrashIcon } from 'lucide-react';
+import { AlignCenterHorizontalIcon, ArrowDownUpIcon, ArrowUpDown, CassetteTape, CreditCardIcon, LoaderCircle, LockKeyhole, PencilIcon, PlusCircle, RefreshCwIcon, Settings, TrashIcon } from 'lucide-react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -90,10 +90,16 @@ export const columns: ColumnDef<itemUserIndex>[] = [
     {
         id: "actions",
         header: () => (<span className='flex justify-center'> Aksi  </span>),
-        cell: ({ row }) => {
-
+        cell: ({ row }: any) => {
             return (
-                <div className='flex items-center gap-x-1'>
+                <div className='flex items-center justify-center gap-x-1'>
+                    {!row.original.has_return_book ? (
+                        <Button variant={'warning'} size={'sm'} asChild >
+                            <Link href={route('admin.return-books.create', row.original)}>
+                                <CreditCardIcon />
+                            </Link>
+                        </Button>
+                    ) : null}
 
                     <Button variant={'default'} size={'sm'} asChild >
                         <Link href={route('admin.loans.edit', row.original)}>

@@ -22,8 +22,8 @@ export default function ReactSelectTahun({ id, title, value, errors, placeholder
     });
 
     return (
-        <div className='grid w-full items-center gap-1.5'>
-            <Label htmlFor={id}>
+        <div className='grid w-full items-center'>
+            <Label htmlFor={id} className='mb-2'>
                 {title}
             </Label>
             <Select<{ value: number; label: string }>

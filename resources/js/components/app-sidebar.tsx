@@ -36,7 +36,6 @@ const mainNavItems: NavItem[] = [
             {
                 title: "Buku",
                 href: '/admin/books',
-                // href: route('admin.books.index'),
                 icon: BookIcon,
             },
             {
@@ -57,6 +56,11 @@ const mainNavItems: NavItem[] = [
             {
                 title: "Peminjaman",
                 href: "/admin/loans",
+                icon: CassetteTapeIcon,
+            },
+            {
+                title: "Pengembalian",
+                href: "/admin/return-books",
                 icon: CassetteTapeIcon,
             }
         ],

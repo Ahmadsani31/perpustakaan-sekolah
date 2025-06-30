@@ -20,12 +20,12 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                         <h3 className='font-light'>{item.header}</h3>
                     </SidebarGroupLabel>
                     <SidebarMenu>
-                        {item.menu.map((item) => (
-                            <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton asChild isActive={page.url.startsWith(item.href)} tooltip={{ children: item.title }}>
-                                    <Link href={item.href} prefetch>
-                                        {item.icon && <item.icon />}
-                                        <span>{item.title}</span>
+                        {item.menu.map((itemMenu, index) => (
+                            <SidebarMenuItem key={index}>
+                                <SidebarMenuButton asChild isActive={page.url.startsWith(itemMenu.href)} tooltip={{ children: itemMenu.title }}>
+                                    <Link href={itemMenu.href} prefetch>
+                                        {itemMenu.icon && <itemMenu.icon />}
+                                        <span>{itemMenu.title}</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>

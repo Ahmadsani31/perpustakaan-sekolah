@@ -6,6 +6,7 @@ use App\Enums\MessageType;
 use App\Enums\UserGender;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
+use App\Http\Requests\Admin\UserUpdatePasswordRequest;
 use App\Http\Resources\Admin\UserResource;
 use App\Models\User;
 use App\Traits\HasFile;
@@ -106,6 +107,21 @@ class UserController extends Controller
             ]);
 
             flashMessage(MessageType::UPDATED->message('Pengguna'));
+            return to_route('admin.users.index');
+        } catch (\Throwable $ee) {
+            dd($ee->getMessage());
+            flashMessage(MessageType::ERROR->message($ee->getMessage()), 'error');
+            return back();
+        }
+    }
+
+
+    public function update_password(User $user, UserUpdatePasswordRequest $request)
+    {
+        try {
+            $user->update($request->validated());
+
+            flashMessage(MessageType::UPDATED->message('Update password pengguna'));
             return to_route('admin.users.index');
         } catch (\Throwable $ee) {
             dd($ee->getMessage());

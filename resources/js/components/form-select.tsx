@@ -14,10 +14,10 @@ type itemsProps = {
 
 export default function FormSelect({ id, title, dataValue, value, errors, placeholder, onValueChange, required }: itemsProps) {
 
-    console.log('====================================');
-    console.log(dataValue);
-    console.log(value);
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log(dataValue);
+    // console.log(value);
+    // console.log('====================================');
 
     return (
         // <div className='grid w-full items-center gap-1.5'>
@@ -48,8 +48,8 @@ export default function FormSelect({ id, title, dataValue, value, errors, placeh
         //         <p className="text-sm m-0 text-red-500">{errors}</p>
         //     )}
         // </div>
-        <div className='grid w-full items-center gap-1.5'>
-            <Label htmlFor={id}>
+        <div className='grid w-full items-center'>
+            <Label htmlFor={id} className='mb-2'>
                 {title}
             </Label>
             <Select
@@ -65,7 +65,7 @@ export default function FormSelect({ id, title, dataValue, value, errors, placeh
                 <SelectContent>
                     {dataValue.map((data, index) => (
                         <SelectItem key={index} value={data.value.toString()}>
-                            {data.label}
+                            {data.value}
                         </SelectItem>
                     ))}
                 </SelectContent>

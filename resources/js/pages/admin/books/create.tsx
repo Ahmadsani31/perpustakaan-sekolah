@@ -57,6 +57,10 @@ export default function Create({ page_settings, page_data }: propsPageCreate) {
         _method: page_settings.method,
     });
 
+    console.log('====================================');
+    console.log(errors);
+    console.log('====================================');
+
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
@@ -96,11 +100,19 @@ export default function Create({ page_settings, page_data }: propsPageCreate) {
                         <form onSubmit={onHandleSubmit} className='space-y-6'>
                             <FormInput id='title' title="Judul" type="text" placeholder='Masukan judul...' value={data.title} onChange={(e) => setData('title', e.target.value)} errors={errors.title} />
                             <FormInput id='author' title="Penulis" type="text" placeholder='Penulis...' value={data.author} onChange={(e) => setData('author', e.target.value)} errors={errors.author} />
-                            <div className='grid lg:grid-cols-2 grid-cols-1 gap-4'>
+                            <div className='grid lg:grid-cols-2 grid-cols-1 gap-6'>
                                 <ReactSelectTahun id='publication_year' title='Tahun Terbit' value={data.publication_year || undefined} onChange={(value) => setData('publication_year', value)} placeholder='Pilih Tahun Terbit' errors={errors.publication_year} required={true} />
                                 <FormInput id='isbn' title="ISBN (International Standard Book Number)" type="text" placeholder='Masukan ISBN...' value={data.isbn} onChange={(e) => setData('isbn', e.target.value)} errors={errors.isbn} />
                             </div>
-                            <FormSelect id='language' title='Bahasa' dataValue={page_data.languages} value={data.language} onValueChange={(value) => setData('language', value)} placeholder='Pilih Bahasa' />
+                            <FormSelect
+                                id='language'
+                                title='Bahasa'
+                                dataValue={page_data.languages}
+                                value={data.language}
+                                onValueChange={(value) => setData('language', value)}
+                                placeholder='Pilih Bahasa'
+                                errors={errors.language}
+                            />
                             <FormTextarea id='synopsis' title="Sinosis" placeholder='Masukan Sinosis...' value={data.synopsis} onChange={(e) => setData('synopsis', e.target.value)} errors={errors.synopsis} />
                             <div className='grid lg:grid-cols-3 grid-cols-1 gap-4'>
                                 <FormInput id='number_of_pages' title="Jumlah Halaman" type="number" placeholder='Jumlah halaman...' value={data.number_of_pages} onChange={(e) => setData('number_of_pages', e.target.value)} errors={errors.number_of_pages} />

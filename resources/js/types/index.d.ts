@@ -24,7 +24,7 @@ export interface NavGroup {
 // }
 
 export interface NavItem {
-    header?: string;
+    header: string;
     menu: NavItemSub[];
 }
 
