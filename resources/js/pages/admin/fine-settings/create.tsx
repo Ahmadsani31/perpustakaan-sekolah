@@ -54,9 +54,7 @@ type PropsForm = {
 };
 
 export default function Create({ page_settings, fine_setting }: propsPage) {
-    console.log('====================================');
-    console.log(fine_setting);
-    console.log('====================================');
+
     const fileInputCover = useRef<HTMLInputElement | null>(null);
 
     const { data, setData, post, reset, errors, processing } = useForm<Required<PropsForm>>({

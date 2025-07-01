@@ -20,6 +20,9 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+
+
+
 import { flashMessage } from '@/lib/utils';
 import { toast } from 'react-toastify';
 
@@ -27,6 +30,8 @@ import { toast } from 'react-toastify';
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from '@/components/data-table';
 import { format } from 'date-fns';
+import { useState } from 'react';
+import DialogLoanCreate from '@/components/dialog-loan-create';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -143,7 +148,7 @@ export const columns: ColumnDef<itemUserIndex>[] = [
 ]
 
 export default function Index({ loans, page_settings }: propsPage) {
-
+    const [dialogAdd, setDialogAdd] = useState(false);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Peminjaman" />
@@ -153,12 +158,14 @@ export default function Index({ loans, page_settings }: propsPage) {
             <div className='flex flex-col w-full px-4 py-2'>
                 <div className='flex flex-col items-start justify-between mb-4 gap-y-4 sm:flex-row sm:items-center'>
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />
-
-                    <Button variant={'primary'} size={'lg'} asChild >
+                    <Button variant={'primary'} size={'lg'} onClick={() => setDialogAdd(true)}>
+                        <PlusCircle /> Tambah
+                    </Button>
+                    {/* <Button variant={'primary'} size={'lg'} asChild >
                         <Link href={route('admin.loans.create')}>
                             <PlusCircle /> Tambah
                         </Link>
-                    </Button>
+                    </Button> */}
 
                 </div>
                 <Card className='py-1 [&_td]:px-3 [&_th]:px-3'>
@@ -174,6 +181,7 @@ export default function Index({ loans, page_settings }: propsPage) {
                     </CardContent>
                 </Card>
             </div>
+            <DialogLoanCreate open={dialogAdd} onOpenChange={setDialogAdd} />
         </AppLayout>
     )
 }

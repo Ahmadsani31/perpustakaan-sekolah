@@ -6,7 +6,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { AlignCenterHorizontalIcon, ArrowDownUpIcon, CassetteTape, LoaderCircle, PencilIcon, PlusCircle, RefreshCwIcon, Settings, TrashIcon } from 'lucide-react';
+import { AlignCenterHorizontalIcon, ArrowDownUpIcon, CassetteTape, EyeIcon, LoaderCircle, PencilIcon, PlusCircle, RefreshCwIcon, Settings, TrashIcon } from 'lucide-react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -127,16 +127,18 @@ export const columns: ColumnDef<itemData>[] = [
     {
         id: "actions",
         header: () => (<span className='flex justify-center'>Aksi</span>),
-        cell: ({ row }) => {
+        cell: ({ row }: any) => {
 
             return (
                 <div className='flex items-center gap-x-1'>
+                    {row.original.fine && (
+                        <Button variant={'default'} size={'sm'} asChild >
+                            <Link href={route('admin.fines.create', row.original.return_book_code)}>
+                                <EyeIcon />
+                            </Link>
+                        </Button>
+                    )}
 
-                    <Button variant={'default'} size={'sm'} asChild >
-                        <Link href="#">
-                            <PencilIcon />
-                        </Link>
-                    </Button>
                 </div>
             )
         },

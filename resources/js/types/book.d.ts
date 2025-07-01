@@ -2,19 +2,19 @@
 export interface propsPage {
     books: {
         data: itemBook[]
-        meta: meta
+        // meta: meta
     },
     page_settings: {
         title: string;
         subtitle: string;
     },
-    state: {
-        page: number;
-        search: string;
-        load: string;
-        field: string;
-        direction: string;
-    }
+    // state: {
+    //     page: number;
+    //     search: string;
+    //     load: string;
+    //     field: string;
+    //     direction: string;
+    // }
 }
 
 type meta = {

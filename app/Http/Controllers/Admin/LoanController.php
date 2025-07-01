@@ -153,4 +153,22 @@ class LoanController extends Controller
             return back();
         }
     }
+
+    public function load_data()
+    {
+        return response()->json([
+            'page_data' => [
+                'books' => Book::select('id', 'title')->whereHas('stock', fn($query) => $query->where('available', '>', 0))->get()
+                    ->map(fn($item) => [
+                        'value' => $item->id,
+                        'label' => $item->title,
+                    ]),
+                'users' => User::select('id', 'name')->get()
+                    ->map(fn($item) => [
+                        'value' => $item->id,
+                        'label' => $item->name,
+                    ]),
+            ],
+        ]);
+    }
 }

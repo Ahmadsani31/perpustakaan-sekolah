@@ -52,3 +52,9 @@ export const message = {
         status: '429'
     },
 }
+
+export const FINEPAYMENTSTATUS = {
+    PENDING: 'Tertunda',
+    SUCCESS: 'Sukses',
+    FAILED: 'Gagal',
+}

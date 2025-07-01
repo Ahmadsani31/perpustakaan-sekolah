@@ -27,23 +27,26 @@ class BookController extends Controller
             'title' => 'Buku',
             'subtitle' => 'Menampilkan semua data buku yang tersedia pada platform ini',
         ];
-        $state = [
-            'page' => request()->page ?? 1,
-            'search' => request()->search ?? '',
-            'load' => 10,
-        ];
-        $query = Book::with(['category', 'publisher', 'stock'])
-            ->filter(request()->only(['search']))
-            ->sorting(request()->only(['field', 'direction']))
-            ->latest('created_at')
-            ->paginate(request()->load ?? 10)
-            ->withQueryString();
-        $books = BookResource::collection($query)->additional([
-            'meta' => [
-                'has_pages' => $query->hasPages()
-            ]
-        ]);
-        return Inertia::render('admin/books/index', compact('books', 'page_settings', 'state'));
+        // $state = [
+        //     'page' => request()->page ?? 1,
+        //     'search' => request()->search ?? '',
+        //     'load' => 10,
+        // ];
+        // $query = Book::with(['category', 'publisher', 'stock'])
+        //     ->filter(request()->only(['search']))
+        //     ->sorting(request()->only(['field', 'direction']))
+        //     ->latest('created_at')
+        //     ->paginate(request()->load ?? 10)
+        //     ->withQueryString();
+        // $books = BookResource::collection($query)->additional([
+        //     'meta' => [
+        //         'has_pages' => $query->hasPages()
+        //     ]
+        // ]);
+
+        $query = Book::with(['category', 'publisher', 'stock'])->latest()->get();
+        $books = BookResource::collection($query);
+        return Inertia::render('admin/books/index', compact('books', 'page_settings'));
     }
 
     public function create(): Response

@@ -19,6 +19,7 @@ export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (
             rtl={false}
             pauseOnFocusLoss
             draggable
+            stacked
             pauseOnHover
             theme="light"
             transition={Bounce}

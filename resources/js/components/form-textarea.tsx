@@ -5,8 +5,8 @@ type itemsProps = {
     title: string
     id: string
     value?: string
-    placeholder: string
-    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+    placeholder?: string
+    onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
     errors?: string
     required?: boolean
 }

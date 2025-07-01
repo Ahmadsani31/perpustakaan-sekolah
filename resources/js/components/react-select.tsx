@@ -14,8 +14,8 @@ type itemsProps = {
 export default function ReactSelect({ id, title, dataValue, value, errors, placeholder, onValueChange, required }: itemsProps) {
 
     return (
-        <div className='grid w-full items-center gap-1.5'>
-            <Label htmlFor={id}>
+        <div className='grid w-full items-center'>
+            <Label htmlFor={id} className='mb-2'>
                 {title}
             </Label>
             <Select
