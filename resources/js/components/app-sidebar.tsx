@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, CookieIcon, BookIcon, HouseIcon, CassetteTapeIcon, LucideIcon, SettingsIcon, User2, User2Icon } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, CookieIcon, BookIcon, HouseIcon, CassetteTapeIcon, LucideIcon, SettingsIcon, User2, User2Icon, InfoIcon } from 'lucide-react';
 import AppLogo from './app-logo';
 
 
@@ -62,6 +62,16 @@ const mainNavItems: NavItem[] = [
                 title: "Pengembalian",
                 href: "/admin/return-books",
                 icon: CassetteTapeIcon,
+            }
+        ],
+    },
+    {
+        header: 'Lainya',
+        menu: [
+            {
+                title: "Pengumuman",
+                href: "/admin/announcements",
+                icon: InfoIcon,
             }
         ],
     },

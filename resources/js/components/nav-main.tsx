@@ -13,9 +13,9 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
     const page = usePage();
 
     return (
-        <SidebarGroup className="px-2 py-0">
+        <>
             {items.map((item, index) => (
-                <div key={index}>
+                <SidebarGroup className="px-2 py-0" key={index}>
                     <SidebarGroupLabel>
                         <h3 className='font-light'>{item.header}</h3>
                     </SidebarGroupLabel>
@@ -31,9 +31,10 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                             </SidebarMenuItem>
                         ))}
                     </SidebarMenu>
-                </div>
+                </SidebarGroup>
             ))}
 
-        </SidebarGroup>
+        </>
+
     );
 }
