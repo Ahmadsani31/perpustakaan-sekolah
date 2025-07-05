@@ -55,14 +55,14 @@ export default function FormSelect({ id, title, dataValue, value, errors, placeh
                 <SelectTrigger className={`border ${errors ? 'border-red-500' : ''}`}>
                     <SelectValue>
                         {dataValue.find((d) => d.value.toString() === value)
-                            ? dataValue.find((d) => d.value.toString() === value)?.value
+                            ? dataValue.find((d) => d.value.toString() === value)?.label
                             : placeholder}
                     </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                     {dataValue.map((data, index) => (
                         <SelectItem key={index} value={data.value.toString()}>
-                            {data.value}
+                            {data.label}
                         </SelectItem>
                     ))}
                 </SelectContent>

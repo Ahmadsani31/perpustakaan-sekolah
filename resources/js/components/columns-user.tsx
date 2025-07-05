@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 import FormInput from './form-input';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
+import ColumnsDatatableActionDelete from './columns-datatable-action-delete';
 
 type itemUserIndex = {
     id: number;
@@ -158,41 +159,7 @@ export const ColumnsUser: ColumnDef<itemUserIndex>[] = [
                             <PencilIcon />
                         </Link>
                     </Button>
-
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild className="cursor-pointer">
-                            <Button variant={'destructive'} size={'sm'}>
-                                <TrashIcon />
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Apakah anda sudah yakin?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    Tindakan ini dapat menghapus data secara permanent dan tidak bisa dibatalkan. "Yes", berarti kamu sudah yakin
-                                    untuk menghapus data secara permanent dari server.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                    onClick={() =>
-                                        router.delete(route('admin.users.destroy', [row.original.id]), {
-                                            preserveScroll: true,
-                                            preserveState: true,
-                                            onSuccess: (success) => {
-                                                const flash = flashMessage(success);
-                                                if (flash.type == 'success') toast.success(flash.message);
-                                                if (flash.type == 'error') toast.error(flash.message);
-                                            },
-                                        })
-                                    }
-                                >
-                                    Yes, delete
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
+                    <ColumnsDatatableActionDelete url={route('admin.users.destroy', [row.original])} />
                 </div>
             );
         },

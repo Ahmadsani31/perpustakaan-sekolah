@@ -2,7 +2,8 @@ import { NavMain } from '@/components/nav-main';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookIcon, CassetteTapeIcon, CookieIcon, HouseIcon, InfoIcon, SettingsIcon, User2Icon } from 'lucide-react';
+import { BookIcon, CassetteTapeIcon, CircleCheck, CircleDivide, CookieIcon, HouseIcon, InfoIcon, SettingsIcon, Target, User2Icon } from 'lucide-react';
+
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -57,6 +58,36 @@ const mainNavItems: NavItem[] = [
             {
                 title: 'Pengembalian',
                 href: '/admin/return-books',
+                icon: CassetteTapeIcon,
+            },
+        ],
+    },
+    {
+        header: 'Peran dan Izin',
+        menu: [
+            {
+                title: 'Peran',
+                href: '/admin/roles',
+                icon: CircleCheck,
+            },
+            {
+                title: 'Peran',
+                href: '/admin/permissions',
+                icon: Target,
+            },
+            {
+                title: 'Tetapkan Izin',
+                href: '#',
+                icon: CassetteTapeIcon,
+            },
+            {
+                title: 'Tetapkan Peran',
+                href: '#',
+                icon: CassetteTapeIcon,
+            },
+            {
+                title: 'Akses Rute',
+                href: '#',
                 icon: CassetteTapeIcon,
             },
         ],

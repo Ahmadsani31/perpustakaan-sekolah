@@ -47,10 +47,6 @@ export default function Create({ page_settings, page_data }: propsPageCreate) {
         _method: page_settings.method,
     });
 
-    console.log('====================================');
-    console.log(errors);
-    console.log('====================================');
-
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 

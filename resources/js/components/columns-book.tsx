@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
+import ColumnsDatatableActionDelete from './columns-datatable-action-delete';
 
 export const ColumnsBook: ColumnDef<itemBook>[] = [
     {
@@ -112,33 +113,7 @@ export const ColumnsBook: ColumnDef<itemBook>[] = [
                             <PencilIcon />
                         </Link>
                     </Button>
-
-                    <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
-                        <AlertDialogTrigger asChild className="cursor-pointer">
-                            <Button variant={'destructive'} size={'sm'}>
-                                <TrashIcon />
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Apakah anda sudah yakin?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    Tindakan ini dapat menghapus data secara permanent dan tidak bisa dibatalkan. "Yes", berarti kamu sudah yakin
-                                    untuk menghapus data secara permanent dari server.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <Button variant={'outline'} onClick={() => setOpenDialog(!openDialog)}>
-                                    Cancel
-                                </Button>
-
-                                <Button onClick={handleOnDelete} disabled={loading}>
-                                    {loading && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                    Yes, delete
-                                </Button>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
+                    <ColumnsDatatableActionDelete url={route('admin.books.destroy', [row.original])} />
                 </div>
             );
         },
