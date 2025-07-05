@@ -1,6 +1,6 @@
 import Banner from '@/components/banner';
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
-import { SharedData, type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { type ReactNode } from 'react';
 import { Bounce, ToastContainer } from 'react-toastify';
@@ -10,15 +10,12 @@ interface AppLayoutProps {
 }
 
 export default function ({ children, breadcrumbs, ...props }: AppLayoutProps) {
-
     const notice = usePage().props.notice as { is_active: number; message: string; url?: string } | undefined;
 
     return (
         <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
             {children}
-            {notice && notice.is_active == 1 && (
-                <Banner message={notice.message} url={notice.url} />
-            )}
+            {notice && notice.is_active == 1 && <Banner message={notice.message} url={notice.url} />}
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
@@ -35,6 +32,4 @@ export default function ({ children, breadcrumbs, ...props }: AppLayoutProps) {
             />
         </AppLayoutTemplate>
     );
-
-
-} 
+}

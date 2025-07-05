@@ -1,20 +1,20 @@
 //INDEX
 export interface propsPage {
     publishers: {
-        data: itemPublisher[]
-        meta: meta
-    },
+        data: itemPublisher[];
+        meta: meta;
+    };
     page_settings: {
         title: string;
         subtitle: string;
-    },
+    };
     state: {
         page: number;
         search: string;
         load: string;
         field: string;
         direction: string;
-    }
+    };
 }
 
 type meta = {
@@ -23,13 +23,13 @@ type meta = {
     current_page: number;
     per_page: number;
     has_pages: boolean;
-    links: links[]
+    links: links[];
 };
 
 type links = {
-    url: string,
-    label: string,
-    active: boolean
+    url: string;
+    label: string;
+    active: boolean;
 };
 
 export interface itemPublisher {
@@ -49,8 +49,8 @@ export interface propsPageCreate {
 }
 
 export interface propsPageEdit {
-    publisher: publishersForm,
-    page_settings: PageSettings
+    publisher: publishersForm;
+    page_settings: PageSettings;
 }
 
 export interface publishersForm {
@@ -60,7 +60,7 @@ export interface publishersForm {
     phone: string;
     logo: File | null;
     _method: string;
-};
+}
 
 type PageSettings = {
     title: string;

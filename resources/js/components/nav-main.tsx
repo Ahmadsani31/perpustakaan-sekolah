@@ -1,14 +1,7 @@
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 
-import {
-    SidebarGroup,
-    SidebarGroupLabel,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    useSidebar,
-} from "@/components/ui/sidebar"
+import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 
 export function NavMain({ items = [] }: { items: NavItem[] }) {
     const page = usePage();
@@ -20,7 +13,7 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                 <SidebarGroup className="px-2 py-0" key={index}>
                     {state == 'expanded' && (
                         <SidebarGroupLabel>
-                            <h3 className='font-light'>{item.header}</h3>
+                            <h3 className="font-light">{item.header}</h3>
                         </SidebarGroupLabel>
                     )}
                     <SidebarMenu>
@@ -37,8 +30,6 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                     </SidebarMenu>
                 </SidebarGroup>
             ))}
-
         </>
-
     );
 }

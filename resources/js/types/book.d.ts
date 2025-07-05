@@ -1,13 +1,13 @@
 //INDEX
 export interface propsPage {
     books: {
-        data: itemBook[]
+        data: itemBook[];
         // meta: meta
-    },
+    };
     page_settings: {
         title: string;
         subtitle: string;
-    },
+    };
     // state: {
     //     page: number;
     //     search: string;
@@ -23,13 +23,13 @@ type meta = {
     current_page: number;
     per_page: number;
     has_pages: boolean;
-    links: links[]
+    links: links[];
 };
 
 type links = {
-    url: string,
-    label: string,
-    active: boolean
+    url: string;
+    label: string;
+    active: boolean;
 };
 
 export interface itemBook {
@@ -50,15 +50,15 @@ export interface itemBook {
     stock: {
         id: number;
         total: number;
-    },
+    };
     category: {
         id: number;
         name: string;
-    },
+    };
     publisher: {
         id: number;
         name: string;
-    }
+    };
 }
 
 // Create
@@ -74,7 +74,7 @@ export interface propsPageCreate {
             value: number;
             name: string;
         }[];
-    }
+    };
 }
 
 export interface booksForm {
@@ -88,11 +88,10 @@ export interface booksForm {
     price: number | null;
     total: number | null;
     category_id: number | null;
-    publisher_id: number | null
+    publisher_id: number | null;
     cover: File | null;
     _method: string;
-};
-
+}
 
 type PageSettings = {
     title: string;
@@ -103,8 +102,8 @@ type PageSettings = {
 
 // Edit
 export interface propsPageEdit {
-    books: itemBookEdit,
-    page_settings: PageSettings
+    books: itemBookEdit;
+    page_settings: PageSettings;
     page_data: {
         languages: string[];
         categories: {
@@ -115,7 +114,7 @@ export interface propsPageEdit {
             value: number;
             name: string;
         }[];
-    }
+    };
 }
 
 type itemBookEdit = {
@@ -135,8 +134,7 @@ type itemBookEdit = {
     created_at: string;
     category_id: number;
     publisher_id: number;
-
-}
+};
 
 export interface booksFormEdit {
     id: number;
@@ -149,7 +147,7 @@ export interface booksFormEdit {
     number_of_pages: string | null;
     price: number | null;
     category_id: number | null;
-    publisher_id: number | null
+    publisher_id: number | null;
     cover: File | null;
     _method: string;
-};
+}

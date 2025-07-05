@@ -8,7 +8,7 @@ export default function AppLogo() {
             </div>
             <div className="ml-1 grid flex-1 text-left text-sm">
                 <span className="mb-0.5 truncate leading-tight font-semibold">Perpustakaan</span>
-                <span className="mb-0.5 truncate leading-tight text-xs">Pengetahuan Tanpa batas</span>
+                <span className="mb-0.5 truncate text-xs leading-tight">Pengetahuan Tanpa batas</span>
             </div>
         </>
     );

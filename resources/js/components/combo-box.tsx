@@ -21,10 +21,7 @@ export default function ComboBox({ items, selectedItem, onSelect, placeholder = 
                     <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent
-                className="max-h-[--radix-popover-content-available-height] w-[--radix-popover-trigger-width] p-0"
-                align="start"
-            >
+            <PopoverContent className="max-h-[--radix-popover-content-available-height] w-[--radix-popover-trigger-width] p-0" align="start">
                 <Command>
                     <CommandInput placeholder={placeholder} className="h-9" />
                     <CommandList>
@@ -33,12 +30,7 @@ export default function ComboBox({ items, selectedItem, onSelect, placeholder = 
                             {items.map(({ item, index }: any) => (
                                 <CommandItem key={index} value={item.value} onSelect={(value) => handleSelect(value)}>
                                     {item.label}
-                                    <CheckIcon
-                                        className={cn(
-                                            'ml-auto h-4 w-4',
-                                            selectedItem === item.label ? 'opacity-100' : 'opacity-0',
-                                        )}
-                                    />
+                                    <CheckIcon className={cn('ml-auto h-4 w-4', selectedItem === item.label ? 'opacity-100' : 'opacity-0')} />
                                 </CommandItem>
                             ))}
                         </CommandGroup>

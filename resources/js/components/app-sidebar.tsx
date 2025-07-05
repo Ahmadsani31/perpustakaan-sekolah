@@ -1,13 +1,9 @@
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, CookieIcon, BookIcon, HouseIcon, CassetteTapeIcon, LucideIcon, SettingsIcon, User2, User2Icon, InfoIcon } from 'lucide-react';
+import { BookIcon, CassetteTapeIcon, CookieIcon, HouseIcon, InfoIcon, SettingsIcon, User2Icon } from 'lucide-react';
 import AppLogo from './app-logo';
-
-
 
 const mainNavItems: NavItem[] = [
     {
@@ -17,62 +13,62 @@ const mainNavItems: NavItem[] = [
                 title: 'Dashboard',
                 href: '/dashboard',
                 icon: CookieIcon,
-            }
-        ]
+            },
+        ],
     },
     {
         header: 'Master',
         menu: [
             {
-                title: "Catagory",
-                href: "/admin/categories",
+                title: 'Catagory',
+                href: '/admin/categories',
                 icon: CassetteTapeIcon,
             },
             {
-                title: "Penerbit",
-                href: "/admin/publishers",
+                title: 'Penerbit',
+                href: '/admin/publishers',
                 icon: HouseIcon,
             },
             {
-                title: "Buku",
+                title: 'Buku',
                 href: '/admin/books',
                 icon: BookIcon,
             },
             {
-                title: "Pengguna",
-                href: "/admin/users",
+                title: 'Pengguna',
+                href: '/admin/users',
                 icon: User2Icon,
             },
             {
-                title: "Pengaturan Denda",
-                href: "/admin/fine-settings/create",
+                title: 'Pengaturan Denda',
+                href: '/admin/fine-settings/create',
                 icon: SettingsIcon,
-            }
+            },
         ],
     },
     {
         header: 'Transaksi',
         menu: [
             {
-                title: "Peminjaman",
-                href: "/admin/loans",
+                title: 'Peminjaman',
+                href: '/admin/loans',
                 icon: CassetteTapeIcon,
             },
             {
-                title: "Pengembalian",
-                href: "/admin/return-books",
+                title: 'Pengembalian',
+                href: '/admin/return-books',
                 icon: CassetteTapeIcon,
-            }
+            },
         ],
     },
     {
         header: 'Lainya',
         menu: [
             {
-                title: "Pengumuman",
-                href: "/admin/announcements",
+                title: 'Pengumuman',
+                href: '/admin/announcements',
                 icon: InfoIcon,
-            }
+            },
         ],
     },
 ];
