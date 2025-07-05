@@ -1,10 +1,6 @@
 import HeaderTitle from '@/components/header-title';
-import Heading from '@/components/heading';
-import HeadingSmall from '@/components/heading-small';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
@@ -22,18 +18,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { flashMessage } from '@/lib/utils';
 import { toast } from 'react-toastify';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
-import { useState } from 'react';
-import useFilter from '@/hooks/use-filter';
-import { Input } from '@/components/ui/input';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-import TableLoader from '@/components/table-loader';
+
 import { DataTable } from '@/components/data-table';
 import { ColumnDef } from '@tanstack/react-table';
 
@@ -58,13 +43,6 @@ interface propsPage {
     },
 }
 
-type dataItem = {
-    message: string;
-    url: string;
-    is_active: boolean;
-    created_at: string
-}
-
 type itemUserIndex = {
     id: number;
     user: {
@@ -86,6 +64,7 @@ export const columns: ColumnDef<itemUserIndex>[] = [
     {
         accessorKey: "url",
         header: "URL",
+        cell: ({ row }: any) => (<p>{row.original.url ? row.original.url : '-'}</p>)
     },
     {
         accessorKey: "is_active",

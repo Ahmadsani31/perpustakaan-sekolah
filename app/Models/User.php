@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -55,5 +56,15 @@ class User extends Authenticatable
             'password' => 'hashed',
             'gender' => UserGender::class,
         ];
+    }
+
+    public function getRoles()
+    {
+        return $this->getRoleNames();
+    }
+
+    public function getUserPermissions()
+    {
+        return $this->getAllPermissions()->mapWithKeys(fn($permission) => [$permission['name'] => true]);
     }
 }

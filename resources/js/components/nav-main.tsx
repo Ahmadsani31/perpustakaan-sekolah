@@ -7,18 +7,22 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    useSidebar,
 } from "@/components/ui/sidebar"
 
 export function NavMain({ items = [] }: { items: NavItem[] }) {
     const page = usePage();
+    const { state } = useSidebar();
 
     return (
         <>
             {items.map((item, index) => (
                 <SidebarGroup className="px-2 py-0" key={index}>
-                    <SidebarGroupLabel>
-                        <h3 className='font-light'>{item.header}</h3>
-                    </SidebarGroupLabel>
+                    {state == 'expanded' && (
+                        <SidebarGroupLabel>
+                            <h3 className='font-light'>{item.header}</h3>
+                        </SidebarGroupLabel>
+                    )}
                     <SidebarMenu>
                         {item.menu.map((itemMenu, index) => (
                             <SidebarMenuItem key={index}>

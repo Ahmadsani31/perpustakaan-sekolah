@@ -72,7 +72,7 @@ export default function Index({ publishers, page_settings, state }: propsPage) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Category" />
+            <Head title="Penerbit" />
             {/* <div className="p-3 bg-amber-100">
                 <HeadingSmall title={page_settings.title} description={page_settings.subtitle} />
             </div> */}
