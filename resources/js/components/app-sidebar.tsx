@@ -1,13 +1,22 @@
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, CookieIcon, BookIcon, HouseIcon, CassetteTapeIcon, LucideIcon, SettingsIcon, User2, User2Icon, InfoIcon } from 'lucide-react';
+import {
+    BookIcon,
+    CassetteTapeIcon,
+    ChartNetwork,
+    CircleCheck,
+    CookieIcon,
+    GalleryHorizontalEnd,
+    HouseIcon,
+    InfoIcon,
+    Route,
+    SettingsIcon,
+    User2Icon,
+    UserCheck,
+} from 'lucide-react';
 import AppLogo from './app-logo';
-
-
 
 const mainNavItems: NavItem[] = [
     {
@@ -17,62 +26,107 @@ const mainNavItems: NavItem[] = [
                 title: 'Dashboard',
                 href: '/dashboard',
                 icon: CookieIcon,
-            }
-        ]
+            },
+        ],
+    },
+    {
+        header: 'Statistik',
+        menu: [
+            {
+                title: 'Statistik Peminjaman',
+                href: '/admin/loan-statistics',
+                icon: ChartNetwork,
+            },
+            {
+                title: 'Laporan Denda',
+                href: '#',
+                icon: CassetteTapeIcon,
+            },
+            {
+                title: 'Laporan Stok Buku',
+                href: '#',
+                icon: CassetteTapeIcon,
+            },
+        ],
     },
     {
         header: 'Master',
         menu: [
             {
-                title: "Catagory",
-                href: "/admin/categories",
+                title: 'Catagory',
+                href: '/admin/categories',
                 icon: CassetteTapeIcon,
             },
             {
-                title: "Penerbit",
-                href: "/admin/publishers",
+                title: 'Penerbit',
+                href: '/admin/publishers',
                 icon: HouseIcon,
             },
             {
-                title: "Buku",
+                title: 'Buku',
                 href: '/admin/books',
                 icon: BookIcon,
             },
             {
-                title: "Pengguna",
-                href: "/admin/users",
+                title: 'Pengguna',
+                href: '/admin/users',
                 icon: User2Icon,
             },
             {
-                title: "Pengaturan Denda",
-                href: "/admin/fine-settings/create",
+                title: 'Pengaturan Denda',
+                href: '/admin/fine-settings/create',
                 icon: SettingsIcon,
-            }
+            },
         ],
     },
     {
         header: 'Transaksi',
         menu: [
             {
-                title: "Peminjaman",
-                href: "/admin/loans",
+                title: 'Peminjaman',
+                href: '/admin/loans',
                 icon: CassetteTapeIcon,
             },
             {
-                title: "Pengembalian",
-                href: "/admin/return-books",
+                title: 'Pengembalian',
+                href: '/admin/return-books',
                 icon: CassetteTapeIcon,
-            }
+            },
+        ],
+    },
+    {
+        header: 'Peran dan Izin',
+        menu: [
+            {
+                title: 'Peran',
+                href: '/admin/roles',
+                icon: CircleCheck,
+            },
+            {
+                title: 'Izin',
+                href: '/admin/permissions',
+                icon: GalleryHorizontalEnd,
+            },
+            {
+                title: 'User Peran',
+                href: '/admin/assign-users',
+                icon: UserCheck,
+            },
+            {
+                title: 'Akses Rute',
+                href: '/admin/route-accesses',
+                icon: Route,
+            },
         ],
     },
     {
         header: 'Lainya',
         menu: [
             {
-                title: "Pengumuman",
-                href: "/admin/announcements",
+                title: 'Pengumuman',
+                href: '/admin/announcements',
                 icon: InfoIcon,
-            }
+            },
         ],
     },
 ];

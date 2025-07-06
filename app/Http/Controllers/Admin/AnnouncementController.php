@@ -100,7 +100,7 @@ class AnnouncementController extends Controller
     {
         try {
             $announcement->delete();
-            flashMessage(MessageType::DELETED->message('Katagori'));
+            flashMessage(MessageType::DELETED->message('Pengumuman'));
             return back();
         } catch (\Throwable $ee) {
             flashMessage(MessageType::ERROR->message($ee->getMessage()), 'error');

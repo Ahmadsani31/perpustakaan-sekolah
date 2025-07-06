@@ -50,7 +50,7 @@ class LoanController extends Controller
                         'value' => $item->id,
                         'label' => $item->title,
                     ]),
-                'users' => User::select('id', 'name')->get()
+                'users' => User::select('id', 'name')->whereHas('roles', fn($query) => $query->where('name', 'member'))->get()
                     ->map(fn($item) => [
                         'value' => $item->id,
                         'label' => $item->name,
@@ -154,7 +154,7 @@ class LoanController extends Controller
         }
     }
 
-    public function load_data()
+    public function dialog_create()
     {
         return response()->json([
             'page_data' => [
@@ -163,7 +163,27 @@ class LoanController extends Controller
                         'value' => $item->id,
                         'label' => $item->title,
                     ]),
-                'users' => User::select('id', 'name')->get()
+                'users' => User::select('id', 'name')->whereHas('roles', fn($query) => $query->where('name', 'member'))->get()
+                    ->map(fn($item) => [
+                        'value' => $item->id,
+                        'label' => $item->name,
+                    ]),
+            ],
+        ]);
+    }
+
+    public function dialog_edit(Loan $loan)
+    {
+
+        return response()->json([
+            'page_data' => [
+                'loan' => $loan,
+                'books' => Book::select('id', 'title')->whereHas('stock', fn($query) => $query->where('available', '>', 0))->get()
+                    ->map(fn($item) => [
+                        'value' => $item->id,
+                        'label' => $item->title,
+                    ]),
+                'users' => User::select('id', 'name')->whereHas('roles', fn($query) => $query->where('name', 'member'))->get()
                     ->map(fn($item) => [
                         'value' => $item->id,
                         'label' => $item->name,

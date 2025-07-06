@@ -28,6 +28,12 @@ export interface NavItem {
     menu: NavItemSub[];
 }
 
+export interface NavSettingItem {
+    title: string;
+    href: string;
+    icon?: LucideIcon | null;
+}
+
 export interface NavItemSub {
     title: string;
     href: string;

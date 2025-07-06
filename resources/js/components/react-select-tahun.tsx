@@ -1,33 +1,32 @@
-import { Label } from './ui/label'
-import Select from 'react-select'
+import Select from 'react-select';
+import { Label } from './ui/label';
 type itemsProps = {
-    id: string
-    title: string
-    value?: string
-    placeholder: string
-    onChange: (value: string) => void
-    errors?: string
-    required?: boolean
-}
+    id: string;
+    title: string;
+    value?: string;
+    placeholder: string;
+    onChange: (value: string) => void;
+    errors?: string;
+    required?: boolean;
+};
 
 export default function ReactSelectTahun({ id, title, value, errors, placeholder, onChange, required }: itemsProps) {
-
     const currentYear = new Date().getFullYear();
     const yearOptions = Array.from({ length: currentYear - 1900 + 1 }, (_, index) => {
         const year = currentYear - index;
         return {
             value: year,
-            label: String(year)
+            label: String(year),
         };
     });
 
     return (
-        <div className='grid w-full items-center'>
-            <Label htmlFor={id} className='mb-2'>
+        <div className="grid w-full items-center">
+            <Label htmlFor={id} className="mb-2">
                 {title}
             </Label>
             <Select<{ value: number; label: string }>
-                value={yearOptions.find(option => option.value.toString() === value)}
+                value={yearOptions.find((option) => option.value.toString() === value)}
                 options={yearOptions}
                 placeholder={placeholder}
                 onChange={(selected) => onChange(selected ? selected.value.toString() : '')}
@@ -42,9 +41,7 @@ export default function ReactSelectTahun({ id, title, value, errors, placeholder
                 }}
                 required={required}
             />
-            {errors && (
-                <p className="text-sm m-0 text-red-500">{errors}</p>
-            )}
+            {errors && <p className="m-0 text-sm text-red-500">{errors}</p>}
         </div>
         // <div className='grid w-full items-center gap-1.5'>
         //     <Label htmlFor={id}>
@@ -72,6 +69,5 @@ export default function ReactSelectTahun({ id, title, value, errors, placeholder
         //         <p className="text-sm m-0 text-red-500">{errors}</p>
         //     )}
         // </div>
-
-    )
+    );
 }

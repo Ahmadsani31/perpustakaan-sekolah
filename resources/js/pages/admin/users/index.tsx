@@ -1,13 +1,13 @@
 import HeaderTitle from '@/components/header-title';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import AppLayout from '@/layouts/app-layout'
+import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { AlignCenterHorizontalIcon, PlusCircle } from 'lucide-react';
 
-import { DataTable } from '@/components/data-table';
 import { ColumnsUser } from '@/components/columns-user';
+import { DataTable } from '@/components/data-table';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,19 +22,19 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface propsPage {
     users: {
-        data: itemUserIndex[]
-    },
+        data: itemUserIndex[];
+    };
     page_settings: {
         title: string;
         subtitle: string;
-    },
+    };
     state: {
         page: number;
         search: string;
         load: string;
         field: string;
         direction: string;
-    }
+    };
 }
 
 type itemUserIndex = {
@@ -46,11 +46,9 @@ type itemUserIndex = {
     gender: string;
     date_of_birth: string;
     created_at: string;
-}
-
+};
 
 export default function Index({ users, page_settings }: propsPage) {
-
     // console.log('user', users);
 
     return (
@@ -59,24 +57,23 @@ export default function Index({ users, page_settings }: propsPage) {
             {/* <div className="p-3 bg-amber-100">
                 <HeadingSmall title={page_settings.title} description={page_settings.subtitle} />
             </div> */}
-            <div className='flex flex-col w-full px-4 py-2'>
-                <div className='flex flex-col items-start justify-between mb-4 gap-y-4 sm:flex-row sm:items-center'>
+            <div className="flex w-full flex-col px-4 py-2">
+                <div className="mb-4 flex flex-col items-start justify-between gap-y-4 sm:flex-row sm:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />
 
-                    <Button variant={'primary'} size={'lg'} asChild >
+                    <Button variant={'primary'} size={'lg'} asChild>
                         <Link href={route('admin.users.create')}>
                             <PlusCircle /> Tambah
                         </Link>
                     </Button>
-
                 </div>
-                <Card className='py-1 [&_td]:px-3 [&_th]:px-3'>
-                    <CardContent className='[&-td]:whitespace-nowrap'>
+                <Card className="py-1 [&_td]:px-3 [&_th]:px-3">
+                    <CardContent className="[&-td]:whitespace-nowrap">
                         <DataTable
                             columns={ColumnsUser}
                             data={users.data}
-                            sortableColumns={["name", "email", "date_of_birth", "created_at"]}
-                            searchableColumns={["name", "email", "address"]}// Now searchable in name, email, and phone
+                            sortableColumns={['name', 'email', 'date_of_birth', 'created_at']}
+                            searchableColumns={['name', 'email', 'address']} // Now searchable in name, email, and phone
                             showIndex={true}
                             dynamicIndex={true}
                         />
@@ -84,7 +81,7 @@ export default function Index({ users, page_settings }: propsPage) {
                 </Card>
             </div>
         </AppLayout>
-    )
+    );
 }
 
 // Index.layout = (page: any) => <AppLayout children={page} title={page.props.page_settings.title} />

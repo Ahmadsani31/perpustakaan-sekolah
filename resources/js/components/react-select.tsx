@@ -1,21 +1,20 @@
-import { Label } from './ui/label'
-import Select from 'react-select'
+import Select from 'react-select';
+import { Label } from './ui/label';
 type itemsProps = {
-    id: string
-    title: string
-    value?: string
-    placeholder: string
-    dataValue: any[]
-    onValueChange: (value: string) => void
-    errors?: string
-    required?: boolean
-}
+    id: string;
+    title: string;
+    value?: string;
+    placeholder: string;
+    dataValue: any[];
+    onValueChange: (value: string) => void;
+    errors?: string;
+    required?: boolean;
+};
 
 export default function ReactSelect({ id, title, dataValue, value, errors, placeholder, onValueChange, required }: itemsProps) {
-
     return (
-        <div className='grid w-full items-center'>
-            <Label htmlFor={id} className='mb-2'>
+        <div className="grid w-full items-center">
+            <Label htmlFor={id} className="mb-2">
                 {title}
             </Label>
             <Select
@@ -34,9 +33,7 @@ export default function ReactSelect({ id, title, dataValue, value, errors, place
                     }),
                 }}
             />
-            {errors && (
-                <p className="text-sm m-0 text-red-500">{errors}</p>
-            )}
+            {errors && <p className="m-0 text-sm text-red-500">{errors}</p>}
         </div>
-    )
+    );
 }

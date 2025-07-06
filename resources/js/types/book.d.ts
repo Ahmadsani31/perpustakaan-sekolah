@@ -1,20 +1,12 @@
 //INDEX
-export interface propsPage {
+export interface propsIndex {
     books: {
-        data: itemBook[]
-        // meta: meta
-    },
+        data: itemBook[];
+    };
     page_settings: {
         title: string;
         subtitle: string;
-    },
-    // state: {
-    //     page: number;
-    //     search: string;
-    //     load: string;
-    //     field: string;
-    //     direction: string;
-    // }
+    };
 }
 
 type meta = {
@@ -23,16 +15,16 @@ type meta = {
     current_page: number;
     per_page: number;
     has_pages: boolean;
-    links: links[]
+    links: links[];
 };
 
 type links = {
-    url: string,
-    label: string,
-    active: boolean
+    url: string;
+    label: string;
+    active: boolean;
 };
 
-export interface itemBook {
+export interface ColumnBook {
     id: number;
     book_code: string;
     title: string;
@@ -50,19 +42,19 @@ export interface itemBook {
     stock: {
         id: number;
         total: number;
-    },
+    };
     category: {
         id: number;
         name: string;
-    },
+    };
     publisher: {
         id: number;
         name: string;
-    }
+    };
 }
 
 // Create
-export interface propsPageCreate {
+export interface propsCreate {
     page_settings: PageSettings;
     page_data: {
         languages: string[];
@@ -74,10 +66,10 @@ export interface propsPageCreate {
             value: number;
             name: string;
         }[];
-    }
+    };
 }
 
-export interface booksForm {
+export interface propsCreateForm {
     title: string;
     author: string;
     publication_year: string | null;
@@ -88,11 +80,10 @@ export interface booksForm {
     price: number | null;
     total: number | null;
     category_id: number | null;
-    publisher_id: number | null
+    publisher_id: number | null;
     cover: File | null;
     _method: string;
-};
-
+}
 
 type PageSettings = {
     title: string;
@@ -102,9 +93,9 @@ type PageSettings = {
 };
 
 // Edit
-export interface propsPageEdit {
-    books: itemBookEdit,
-    page_settings: PageSettings
+export interface propsEdit {
+    books: itemBookEdit;
+    page_settings: PageSettings;
     page_data: {
         languages: string[];
         categories: {
@@ -115,7 +106,7 @@ export interface propsPageEdit {
             value: number;
             name: string;
         }[];
-    }
+    };
 }
 
 type itemBookEdit = {
@@ -135,10 +126,9 @@ type itemBookEdit = {
     created_at: string;
     category_id: number;
     publisher_id: number;
+};
 
-}
-
-export interface booksFormEdit {
+export interface propsEditForm {
     id: number;
     title: string;
     author: string;
@@ -149,7 +139,7 @@ export interface booksFormEdit {
     number_of_pages: string | null;
     price: number | null;
     category_id: number | null;
-    publisher_id: number | null
+    publisher_id: number | null;
     cover: File | null;
     _method: string;
-};
+}

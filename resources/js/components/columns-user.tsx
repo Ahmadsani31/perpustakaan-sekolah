@@ -1,23 +1,21 @@
-import { flashMessage, formatToRupiah } from "@/lib/utils";
-import { ColumnDef } from "@tanstack/react-table";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { FormEventHandler, useState } from "react";
-import { Link, router, useForm } from "@inertiajs/react";
-import { toast } from "react-toastify";
-import { Button } from "./ui/button";
-import { LoaderCircle, LockKeyhole, PencilIcon, TrashIcon } from "lucide-react";
 import {
     AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
-    AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import FormInput from "./form-input";
+} from '@/components/ui/alert-dialog';
+import { flashMessage } from '@/lib/utils';
+import { Link, useForm } from '@inertiajs/react';
+import { ColumnDef } from '@tanstack/react-table';
+import { LoaderCircle, LockKeyhole, PencilIcon } from 'lucide-react';
+import { FormEventHandler, useState } from 'react';
+import { toast } from 'react-toastify';
+import ColumnsDatatableActionDelete from './columns-datatable-action-delete';
+import FormInput from './form-input';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Button } from './ui/button';
 
 type itemUserIndex = {
     id: number;
@@ -28,28 +26,28 @@ type itemUserIndex = {
     gender: string;
     date_of_birth: string;
     created_at: string;
-}
+};
 
 export const ColumnsUser: ColumnDef<itemUserIndex>[] = [
     {
-        accessorKey: "name",
-        header: "Nama",
+        accessorKey: 'name',
+        header: 'Nama',
     },
     {
-        accessorKey: "username",
-        header: "Username",
+        accessorKey: 'username',
+        header: 'Username',
     },
     {
-        accessorKey: "email",
-        header: "Email",
+        accessorKey: 'email',
+        header: 'Email',
     },
     {
-        accessorKey: "phone",
-        header: "No Handphone",
+        accessorKey: 'phone',
+        header: 'No Handphone',
     },
     {
-        accessorKey: "avatar",
-        header: "Avatar",
+        accessorKey: 'avatar',
+        header: 'Avatar',
         cell: ({ row }) => (
             <Avatar>
                 <AvatarImage src={row.original.avatar} />
@@ -58,38 +56,35 @@ export const ColumnsUser: ColumnDef<itemUserIndex>[] = [
         ),
     },
     {
-        accessorKey: "gender",
-        header: "Jenis Kelamin",
+        accessorKey: 'gender',
+        header: 'Jenis Kelamin',
     },
     {
-        accessorKey: "date_of_birth",
-        header: "Tanggal Lahir",
+        accessorKey: 'date_of_birth',
+        header: 'Tanggal Lahir',
     },
     {
-        accessorKey: "address",
-        header: "Alamat",
+        accessorKey: 'address',
+        header: 'Alamat',
     },
     {
-        accessorKey: "created_at",
-        header: "Joined At",
-        cell: ({ row }) => new Date(row.getValue("created_at")).toLocaleDateString(),
+        accessorKey: 'created_at',
+        header: 'Joined At',
+        cell: ({ row }) => new Date(row.getValue('created_at')).toLocaleDateString(),
     },
     {
-        id: "actions",
-        header: () => (<span className='flex justify-center'> Aksi  </span>),
+        id: 'actions',
+        header: () => <span className="flex justify-center"> Aksi </span>,
         cell: ({ row }) => {
-
             const [dialogOpen, setDialogOpen] = useState(false);
-
 
             const { data, setData, post, reset, errors, processing } = useForm<Required<any>>({
                 password: '',
                 password_confirmation: '',
-                _method: 'PUT'
+                _method: 'PUT',
             });
 
             // console.log(errors);
-
 
             const handleResetPassword: FormEventHandler = (e) => {
                 e.preventDefault();
@@ -101,102 +96,69 @@ export const ColumnsUser: ColumnDef<itemUserIndex>[] = [
                     onSuccess: (success) => {
                         console.log(success);
 
-                        const flash = flashMessage(success)
+                        const flash = flashMessage(success);
 
                         if (flash.type == 'success') toast.success(flash.message);
                         if (flash.type == 'error') toast.error(flash.message);
                     },
-                    onFinish: visit => {
+                    onFinish: (visit) => {
                         console.log('finis');
-
                     },
                 });
             };
 
             return (
-                <div className='flex items-center gap-x-1'>
+                <div className="flex items-center gap-x-1">
                     <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                        <AlertDialogTrigger asChild className='cursor-pointer'>
-                            <Button variant={'primary'} size={'sm'} >
+                        <AlertDialogTrigger asChild className="cursor-pointer">
+                            <Button variant={'primary'} size={'sm'}>
                                 <LockKeyhole />
                             </Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                             <AlertDialogHeader>
                                 <AlertDialogTitle>Update Password Pengguna</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    Silahkan update password pengguna, memasukan password baru.
-                                </AlertDialogDescription>
+                                <AlertDialogDescription>Silahkan update password pengguna, memasukan password baru.</AlertDialogDescription>
                             </AlertDialogHeader>
-                            <form onSubmit={handleResetPassword} className='space-y-4'>
+                            <form onSubmit={handleResetPassword} className="space-y-4">
                                 <FormInput
-                                    id='password'
+                                    id="password"
                                     title="Password"
                                     type="password"
-                                    placeholder='Masukan password...'
+                                    placeholder="Masukan password..."
                                     value={data.password}
                                     onChange={(e) => setData('password', e.target.value)}
                                     errors={errors.password}
                                 />
                                 <FormInput
-                                    id='password_confirmation'
+                                    id="password_confirmation"
                                     title="Konfirmasi password"
                                     type="password"
-                                    placeholder='Konfirmasi password...'
+                                    placeholder="Konfirmasi password..."
                                     value={data.password_confirmation}
                                     onChange={(e) => setData('password_confirmation', e.target.value)}
                                     errors={errors.password_confirmation}
                                 />
-                                <div className='flex justify-end gap-x-2'>
-                                    <Button variant={'outline'} type='button' onClick={() => setDialogOpen(false)}>Cancel</Button>
-                                    <Button type='submit' disabled={processing}>
+                                <div className="flex justify-end gap-x-2">
+                                    <Button variant={'outline'} type="button" onClick={() => setDialogOpen(false)}>
+                                        Cancel
+                                    </Button>
+                                    <Button type="submit" disabled={processing}>
                                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                         Update Password
                                     </Button>
                                 </div>
-
                             </form>
-
-
                         </AlertDialogContent>
                     </AlertDialog>
-                    <Button variant={'default'} size={'sm'} asChild >
+                    <Button variant={'default'} size={'sm'} asChild>
                         <Link href={route('admin.users.edit', row.original)}>
                             <PencilIcon />
                         </Link>
                     </Button>
-
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild className='cursor-pointer'>
-                            <Button variant={'destructive'} size={'sm'} >
-                                <TrashIcon />
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Apakah anda sudah yakin?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    Tindakan ini dapat menghapus data secara permanent dan tidak bisa dibatalkan. "Yes", berarti kamu sudah yakin untuk menghapus data secara permanent dari server.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => router.delete(
-                                    route('admin.users.destroy', [row.original.id]), {
-                                    preserveScroll: true,
-                                    preserveState: true,
-                                    onSuccess: (success) => {
-                                        const flash = flashMessage(success)
-                                        if (flash.type == 'success') toast.success(flash.message);
-                                        if (flash.type == 'error') toast.error(flash.message);
-                                    }
-                                }
-                                )}>Yes, delete</AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
+                    <ColumnsDatatableActionDelete url={route('admin.users.destroy', [row.original])} />
                 </div>
-            )
+            );
         },
     },
-]
+];

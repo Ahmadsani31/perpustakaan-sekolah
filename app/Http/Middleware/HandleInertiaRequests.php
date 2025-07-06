@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Announcement;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -54,7 +55,8 @@ class HandleInertiaRequests extends Middleware
             'flash_message' => fn() => [
                 'type' => $request->session()->get('type'),
                 'message' => $request->session()->get('message'),
-            ]
+            ],
+            'notice' => fn() => Announcement::query()->where('is_active', true)->first()
         ];
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
-            $table->foreignId('load_id')->constrained('loans')->cascadeOnDelete();
+            $table->foreignId('loan_id')->constrained('loans')->cascadeOnDelete();
             $table->string('return_book_code')->unique();
             $table->date('return_date');
             $table->string('status')->default(ReturnBookStatus::CHECKED->value);
