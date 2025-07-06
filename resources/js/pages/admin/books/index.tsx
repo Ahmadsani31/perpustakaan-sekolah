@@ -8,7 +8,7 @@ import { AlignCenterHorizontalIcon, PlusCircle } from 'lucide-react';
 
 import { ColumnsBook } from '@/components/columns-book';
 import { DataTable } from '@/components/data-table';
-import { propsPage } from '@/types/book';
+import { propsIndex } from '@/types/book';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -21,13 +21,10 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Index({ books, page_settings }: propsPage) {
+export default function Index({ books, page_settings }: propsIndex) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Buku" />
-            {/* <div className="p-3 bg-amber-100">
-                <HeadingSmall title={page_settings.title} description={page_settings.subtitle} />
-            </div> */}
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2">
                 <div className="mb-4 flex flex-col items-start justify-between gap-y-4 sm:flex-row sm:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />

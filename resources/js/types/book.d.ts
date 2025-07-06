@@ -1,20 +1,13 @@
 //INDEX
-export interface propsPage {
+export interface propsIndex {
     books: {
         data: itemBook[];
-        // meta: meta
     };
     page_settings: {
         title: string;
         subtitle: string;
     };
-    // state: {
-    //     page: number;
-    //     search: string;
-    //     load: string;
-    //     field: string;
-    //     direction: string;
-    // }
+
 }
 
 type meta = {
@@ -32,7 +25,7 @@ type links = {
     active: boolean;
 };
 
-export interface itemBook {
+export interface ColumnBook {
     id: number;
     book_code: string;
     title: string;
@@ -62,7 +55,7 @@ export interface itemBook {
 }
 
 // Create
-export interface propsPageCreate {
+export interface propsCreate {
     page_settings: PageSettings;
     page_data: {
         languages: string[];
@@ -77,7 +70,7 @@ export interface propsPageCreate {
     };
 }
 
-export interface booksForm {
+export interface propsCreateForm {
     title: string;
     author: string;
     publication_year: string | null;
@@ -101,7 +94,7 @@ type PageSettings = {
 };
 
 // Edit
-export interface propsPageEdit {
+export interface propsEdit {
     books: itemBookEdit;
     page_settings: PageSettings;
     page_data: {
@@ -136,7 +129,7 @@ type itemBookEdit = {
     publisher_id: number;
 };
 
-export interface booksFormEdit {
+export interface propsEditForm {
     id: number;
     title: string;
     author: string;

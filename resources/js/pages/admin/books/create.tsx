@@ -13,7 +13,7 @@ import FormTextarea from '@/components/form-textarea';
 import ReactSelect from '@/components/react-select';
 import ReactSelectTahun from '@/components/react-select-tahun';
 import { flashMessage } from '@/lib/utils';
-import { booksForm, propsPageCreate } from '@/types/book';
+import { propsCreateForm, propsCreate } from '@/types/book';
 import { FormEventHandler, useRef } from 'react';
 import { toast } from 'react-toastify';
 
@@ -28,10 +28,10 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Create({ page_settings, page_data }: propsPageCreate) {
+export default function Create({ page_settings, page_data }: propsCreate) {
     const fileInputCover = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, post, reset, errors, processing } = useForm<Required<booksForm>>({
+    const { data, setData, post, reset, errors, processing } = useForm<Required<propsCreateForm>>({
         title: '',
         author: '',
         publication_year: null,
@@ -70,7 +70,7 @@ export default function Create({ page_settings, page_data }: propsPageCreate) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Tambah Buku" />
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2">
                 <div className="mb-8 flex flex-col items-start justify-between gap-y-4 md:flex-row md:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />

@@ -13,7 +13,7 @@ import FormTextarea from '@/components/form-textarea';
 import ReactSelect from '@/components/react-select';
 import ReactSelectTahun from '@/components/react-select-tahun';
 import { flashMessage } from '@/lib/utils';
-import { booksFormEdit, propsPageEdit } from '@/types/book';
+import { propsEditForm, propsEdit } from '@/types/book';
 import { FormEventHandler, useRef } from 'react';
 import { toast } from 'react-toastify';
 
@@ -28,10 +28,10 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Edit({ page_settings, books, page_data }: propsPageEdit) {
+export default function Edit({ page_settings, books, page_data }: propsEdit) {
     const fileInputCover = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, post, reset, errors, processing } = useForm<Required<booksFormEdit>>({
+    const { data, setData, post, reset, errors, processing } = useForm<Required<propsEditForm>>({
         id: books.id ?? '',
         title: books.title ?? '',
         author: books.author ?? '',
@@ -57,9 +57,9 @@ export default function Edit({ page_settings, books, page_data }: propsPageEdit)
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
-                const flash = flashMessage(success);
-                if (flash.type == 'success') toast.success(flash.message);
-                if (flash.type == 'error') toast.error(flash.message);
+                // const flash = flashMessage(success);
+                // if (flash.type == 'success') toast.success(flash.message);
+                // if (flash.type == 'error') toast.error(flash.message);
             },
         });
     };

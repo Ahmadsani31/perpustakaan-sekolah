@@ -22,6 +22,7 @@ import useFilter from '@/hooks/use-filter';
 import AppLayout from '@/layouts/app-layout';
 import { flashMessage } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
+import { propsIndex } from '@/types/category';
 import { Head, Link, router } from '@inertiajs/react';
 import { AlignCenterHorizontalIcon, ArrowDownUpIcon, PencilIcon, PlusCircle, RefreshCwIcon, TrashIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -33,50 +34,13 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
     {
-        title: 'Category',
+        title: 'Kategori',
         href: '#',
     },
 ];
 
-interface propsPage {
-    categories: {
-        data: itemCategory[];
-        meta: {
-            from: number;
-            total: number;
-            current_page: number;
-            per_page: number;
-            has_pages: boolean;
-            links: {
-                url: string;
-                label: string;
-                active: boolean;
-            }[];
-        };
-    };
-    page_settings: {
-        title: string;
-        subtitle: string;
-    };
-    state: {
-        page: number;
-        search: string;
-        load: string;
-        field: string;
-        direction: string;
-    };
-}
 
-type itemCategory = {
-    id: number;
-    name: string;
-    slug: string;
-    description: string;
-    cover: string;
-    created_at: string;
-};
-
-export default function Index({ categories, page_settings, state }: propsPage) {
+export default function Index({ categories, page_settings, state }: propsIndex) {
     const { data: categoryList, meta } = categories;
 
     const [params, setParams] = useState(state);
@@ -98,10 +62,7 @@ export default function Index({ categories, page_settings, state }: propsPage) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Category" />
-            {/* <div className="p-3 bg-amber-100">
-                <HeadingSmall title={page_settings.title} description={page_settings.subtitle} />
-            </div> */}
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2">
                 <div className="mb-4 flex flex-col items-start justify-between gap-y-4 sm:flex-row sm:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />

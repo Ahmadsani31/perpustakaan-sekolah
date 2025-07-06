@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { flashMessage } from '@/lib/utils';
 import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
+import { propsCreate, propsCreateForm } from '@/types/announcement';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -19,29 +20,13 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
     {
-        title: 'Category',
+        title: 'Pengumuman',
         href: '#',
     },
 ];
 
-interface propsPage {
-    page_settings: {
-        title: string;
-        subtitle: string;
-        method: string;
-        action: string;
-    };
-}
-
-type PropsForm = {
-    message: string;
-    url: string;
-    is_active: boolean;
-    _method: string;
-};
-
-export default function Create({ page_settings }: propsPage) {
-    const { data, setData, post, reset, errors, processing } = useForm<Required<PropsForm>>({
+export default function Create({ page_settings }: propsCreate) {
+    const { data, setData, post, reset, errors, processing } = useForm<Required<propsCreateForm>>({
         message: '',
         url: '',
         is_active: false,
@@ -68,7 +53,7 @@ export default function Create({ page_settings }: propsPage) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Tambah Pengumuman" />
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2 pb-32">
                 <div className="mb-8 flex flex-col items-start justify-between gap-y-4 md:flex-row md:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />

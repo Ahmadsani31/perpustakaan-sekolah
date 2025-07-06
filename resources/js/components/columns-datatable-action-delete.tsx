@@ -16,9 +16,9 @@ export default function ColumnsDatatableActionDelete({ url }: { url: string }) {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
-                const flash = flashMessage(success);
-                if (flash.type == 'success') toast.success(flash.message);
-                if (flash.type == 'error') toast.error(flash.message);
+                // const flash = flashMessage(success);
+                // if (flash.type == 'success') toast.success(flash.message);
+                // if (flash.type == 'error') toast.error(flash.message);
                 setProcessing(false);
                 setDialogOpen(false);
             },

@@ -10,7 +10,7 @@ import FormInput from '@/components/form-input';
 import { FormSelectMulti } from '@/components/form-select-multi';
 import { Label } from '@/components/ui/label';
 import { flashMessage } from '@/lib/utils';
-import { propsFormEdit, propsPageEdit } from '@/types/assign-permission';
+import { propsEditForm, propsEdit } from '@/types/assign-permission';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -29,10 +29,10 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Edit({ page_settings, role, permissions }: propsPageEdit) {
+export default function Edit({ page_settings, role, permissions }: propsEdit) {
     const [selectPermissions, setSelectPermissions] = useState<any>(Array.from(new Set(role.permissions.map((permission) => Number(permission.id)))));
 
-    const { data, setData, post, reset, errors, processing } = useForm<Required<propsFormEdit>>({
+    const { data, setData, post, reset, errors, processing } = useForm<Required<propsEditForm>>({
         name: role.name ?? '',
         permissions: selectPermissions,
         _method: page_settings.method ?? 'put',
@@ -48,9 +48,9 @@ export default function Edit({ page_settings, role, permissions }: propsPageEdit
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
-                const flash = flashMessage(success);
-                if (flash.type == 'success') toast.success(flash.message);
-                if (flash.type == 'error') toast.error(flash.message);
+                // const flash = flashMessage(success);
+                // if (flash.type == 'success') toast.success(flash.message);
+                // if (flash.type == 'error') toast.error(flash.message);
             },
         });
     };
@@ -64,7 +64,7 @@ export default function Edit({ page_settings, role, permissions }: propsPageEdit
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Terapkan Izin" />
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2 pb-32">
                 <div className="mb-8 flex flex-col items-start justify-between gap-y-4 md:flex-row md:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />

@@ -5,7 +5,7 @@ import HeaderTitle from '@/components/header-title';
 import { Card, CardContent } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
-import { propsPage } from '@/types/assign-user';
+import { propsIndex } from '@/types/assign-user';
 import { Head } from '@inertiajs/react';
 import { AlignCenterHorizontalIcon } from 'lucide-react';
 
@@ -20,10 +20,10 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Index({ users, page_settings }: propsPage) {
+export default function Index({ users, page_settings }: propsIndex) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Terapkan Peran" />
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2">
                 <div className="mb-4 flex flex-col items-start justify-between gap-y-4 sm:flex-row sm:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />

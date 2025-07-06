@@ -21,6 +21,9 @@ import { toast } from 'react-toastify';
 
 import { DataTable } from '@/components/data-table';
 import { ColumnDef } from '@tanstack/react-table';
+import ColumnsDatatableActionDelete from '@/components/columns-datatable-action-delete';
+import { ColumnsAnnouncement } from '@/components/columns-announcement';
+import { propsIndex } from '@/types/announcement';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -33,100 +36,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface propsPage {
-    announcement: {
-        data: [];
-    };
-    page_settings: {
-        title: string;
-        subtitle: string;
-    };
-}
-
-type itemUserIndex = {
-    id: number;
-    user: {
-        name: string;
-    };
-    user_id: number;
-    book_id: number;
-    loan_code: string;
-    loan_date: string;
-    due_date: string;
-    created_at: string;
-};
-
-export const columns: ColumnDef<itemUserIndex>[] = [
-    {
-        accessorKey: 'message',
-        header: 'Pesan',
-    },
-    {
-        accessorKey: 'url',
-        header: 'URL',
-        cell: ({ row }: any) => <p>{row.original.url ? row.original.url : '-'}</p>,
-    },
-    {
-        accessorKey: 'is_active',
-        header: 'Aktif',
-    },
-    {
-        accessorKey: 'created_at',
-        header: 'Dibuat Pada',
-    },
-    {
-        id: 'actions',
-        header: () => <span className="flex justify-center"> Aksi </span>,
-        cell: ({ row }: any) => {
-            return (
-                <div className="flex items-center justify-center gap-x-1">
-                    <Button variant={'default'} size={'sm'} asChild>
-                        <Link href={route('admin.announcements.edit', row.original)}>
-                            <PencilIcon />
-                        </Link>
-                    </Button>
-
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild className="cursor-pointer">
-                            <Button variant={'destructive'} size={'sm'}>
-                                <TrashIcon />
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Apakah anda sudah yakin?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    Tindakan ini dapat menghapus data secara permanent dan tidak bisa dibatalkan. "Yes", berarti kamu sudah yakin
-                                    untuk menghapus data secara permanent dari server.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                    onClick={() =>
-                                        router.delete(route('admin.announcements.destroy', [row.original.id]), {
-                                            preserveScroll: true,
-                                            preserveState: true,
-                                            onSuccess: (success) => {
-                                                const flash = flashMessage(success);
-                                                if (flash.type == 'success') toast.success(flash.message);
-                                                if (flash.type == 'error') toast.error(flash.message);
-                                            },
-                                        })
-                                    }
-                                >
-                                    Yes, delete
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
-                </div>
-            );
-        },
-    },
-];
-
-export default function Index({ announcement, page_settings }: propsPage) {
+export default function Index({ announcement, page_settings }: propsIndex) {
     console.log(announcement);
 
     return (
@@ -145,7 +55,7 @@ export default function Index({ announcement, page_settings }: propsPage) {
                 <Card className="py-1 [&_td]:px-3 [&_th]:px-3">
                     <CardContent className="[&-td]:whitespace-nowrap">
                         <DataTable
-                            columns={columns}
+                            columns={ColumnsAnnouncement}
                             data={announcement.data}
                             sortableColumns={['name', 'email', 'date_of_birth', 'created_at']}
                             searchableColumns={['name', 'email', 'address']} // Now searchable in name, email, and phone

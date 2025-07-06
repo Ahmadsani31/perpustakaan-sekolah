@@ -1,5 +1,5 @@
 import { flashMessage, formatToRupiah } from '@/lib/utils';
-import { itemBook } from '@/types/book';
+import { ColumnBook } from '@/types/book';
 import { Link, router } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { PencilIcon } from 'lucide-react';
@@ -9,7 +9,7 @@ import ColumnsDatatableActionDelete from './columns-datatable-action-delete';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 
-export const ColumnsBook: ColumnDef<itemBook>[] = [
+export const ColumnsBook: ColumnDef<ColumnBook>[] = [
     {
         accessorKey: 'book_code',
         header: 'Kode Buku',

@@ -10,7 +10,7 @@ import FormInput from '@/components/form-input';
 import { FormSelectMulti } from '@/components/form-select-multi';
 import { Label } from '@/components/ui/label';
 import { flashMessage } from '@/lib/utils';
-import { propsFormEdit, propsPageEdit } from '@/types/assign-user';
+import { propsEditForm, propsEdit } from '@/types/assign-user';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -24,17 +24,17 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/admin/roles',
     },
     {
-        title: 'Terapkan Izin',
+        title: 'Sinkronisasi Peran',
         href: '#',
     },
 ];
 
-export default function Edit({ page_settings, user, roles }: propsPageEdit) {
+export default function Edit({ page_settings, user, roles }: propsEdit) {
     // console.log(user);
 
     const [selectRoles, setSelectRoles] = useState<any>(Array.from(new Set(user.roles.map((role) => Number(role.id)))));
 
-    const { data, setData, post, reset, errors, processing } = useForm<Required<propsFormEdit>>({
+    const { data, setData, post, reset, errors, processing } = useForm<Required<propsEditForm>>({
         email: user.email ?? '',
         roles: selectRoles,
         _method: page_settings.method ?? 'put',
@@ -50,9 +50,9 @@ export default function Edit({ page_settings, user, roles }: propsPageEdit) {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
-                const flash = flashMessage(success);
-                if (flash.type == 'success') toast.success(flash.message);
-                if (flash.type == 'error') toast.error(flash.message);
+                // const flash = flashMessage(success);
+                // if (flash.type == 'success') toast.success(flash.message);
+                // if (flash.type == 'error') toast.error(flash.message);
             },
         });
     };
@@ -66,7 +66,7 @@ export default function Edit({ page_settings, user, roles }: propsPageEdit) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Terapkan Izin" />
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2 pb-32">
                 <div className="mb-8 flex flex-col items-start justify-between gap-y-4 md:flex-row md:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />

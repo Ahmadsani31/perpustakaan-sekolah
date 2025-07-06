@@ -1,11 +1,11 @@
-import { itemColumns } from '@/types/roles';
 import { Link } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { RefreshCcw } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
+import { columnAssignUser } from '@/types/assign-user';
 
-export const ColumnsAssignUsers: ColumnDef<itemColumns>[] = [
+export const ColumnsAssignUsers: ColumnDef<columnAssignUser>[] = [
     {
         accessorKey: 'name',
         header: 'Name',

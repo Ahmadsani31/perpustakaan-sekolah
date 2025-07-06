@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { flashMessage } from '@/lib/utils';
 import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
+import { propsEdit, propsEditForm } from '@/types/announcement';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -19,36 +20,13 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
     {
-        title: 'Category',
+        title: 'Edit Pengumuman',
         href: '#',
     },
 ];
 
-interface propsPage {
-    page_settings: {
-        title: string;
-        subtitle: string;
-        method: string;
-        action: string;
-    };
-    announcement: {
-        id: number;
-        message: string;
-        url: string;
-        is_active: boolean;
-    };
-}
-
-type PropsForm = {
-    id: number;
-    message: string;
-    url: string;
-    is_active: boolean;
-    _method: string;
-};
-
-export default function Edit({ announcement, page_settings }: propsPage) {
-    const { data, setData, post, reset, errors, processing } = useForm<Required<PropsForm>>({
+export default function Edit({ announcement, page_settings }: propsEdit) {
+    const { data, setData, post, reset, errors, processing } = useForm<Required<propsEditForm>>({
         id: announcement.id ?? '',
         message: announcement.message ?? '',
         url: announcement.url ?? '',
@@ -63,9 +41,9 @@ export default function Edit({ announcement, page_settings }: propsPage) {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
-                const flash = flashMessage(success);
-                if (flash.type == 'success') toast.success(flash.message);
-                if (flash.type == 'error') toast.error(flash.message);
+                // const flash = flashMessage(success);
+                // if (flash.type == 'success') toast.success(flash.message);
+                // if (flash.type == 'error') toast.error(flash.message);
             },
         });
     };
@@ -76,7 +54,7 @@ export default function Edit({ announcement, page_settings }: propsPage) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Tambah Pengumuman" />
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2 pb-32">
                 <div className="mb-8 flex flex-col items-start justify-between gap-y-4 md:flex-row md:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />

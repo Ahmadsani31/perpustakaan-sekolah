@@ -12,6 +12,7 @@ import FormTextarea from '@/components/form-textarea';
 import { flashMessage } from '@/lib/utils';
 import { FormEventHandler, useRef } from 'react';
 import { toast } from 'react-toastify';
+import { propsCreate, propsCreateForm } from '@/types/category';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -19,31 +20,16 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
     {
-        title: 'Category',
+        title: 'Kategori',
         href: '#',
     },
 ];
 
-interface propsPage {
-    page_settings: {
-        title: string;
-        subtitle: string;
-        method: string;
-        action: string;
-    };
-}
 
-type PropsForm = {
-    name: string;
-    description: string;
-    cover: File | null;
-    _method: string;
-};
-
-export default function Create({ page_settings }: propsPage) {
+export default function Create({ page_settings }: propsCreate) {
     const fileInputCover = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, post, reset, errors, processing } = useForm<Required<PropsForm>>({
+    const { data, setData, post, reset, errors, processing } = useForm<Required<propsCreateForm>>({
         name: '',
         description: '',
         cover: null,
@@ -73,7 +59,7 @@ export default function Create({ page_settings }: propsPage) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Tambah Category" />
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2 pb-32">
                 <div className="mb-8 flex flex-col items-start justify-between gap-y-4 md:flex-row md:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />
