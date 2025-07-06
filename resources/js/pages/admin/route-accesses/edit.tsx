@@ -6,11 +6,11 @@ import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { ArrowLeft, CassetteTape, LoaderCircle } from 'lucide-react';
 
-import { flashMessage } from '@/lib/utils';
-import { FormEventHandler, useRef } from 'react';
-import { toast } from 'react-toastify';
 import ReactSelect from '@/components/react-select';
+import { flashMessage } from '@/lib/utils';
 import { propsFormEdit, propsPageEdit } from '@/types/rute-access';
+import { FormEventHandler } from 'react';
+import { toast } from 'react-toastify';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -23,9 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-
 export default function Edit({ page_settings, roles, permissions, routes, routeAccess }: propsPageEdit) {
-
     console.log(roles);
 
     const { data, setData, post, reset, errors, processing } = useForm<Required<propsFormEdit>>({

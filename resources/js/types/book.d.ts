@@ -7,7 +7,6 @@ export interface propsIndex {
         title: string;
         subtitle: string;
     };
-
 }
 
 type meta = {

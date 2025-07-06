@@ -7,9 +7,9 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { ArrowLeft, CassetteTape, LoaderCircle } from 'lucide-react';
 
 import { flashMessage } from '@/lib/utils';
+import { propsFormCreate, propsPageCreate } from '@/types/rute-access';
 import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
-import { propsFormCreate, propsPageCreate } from '@/types/rute-access';
 
 import ReactSelect from '@/components/react-select';
 
@@ -25,14 +25,12 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Create({ page_settings, roles, permissions, routes }: propsPageCreate) {
-
     const { data, setData, post, reset, errors, processing } = useForm<Required<propsFormCreate>>({
         route_name: '',
         role_id: '',
         permission_id: '',
         _method: page_settings.method,
     });
-
 
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();

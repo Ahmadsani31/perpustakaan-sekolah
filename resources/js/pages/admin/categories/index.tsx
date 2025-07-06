@@ -39,7 +39,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-
 export default function Index({ categories, page_settings, state }: propsIndex) {
     const { data: categoryList, meta } = categories;
 

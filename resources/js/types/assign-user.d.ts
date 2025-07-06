@@ -6,7 +6,6 @@ export interface propsIndex {
     page_settings: PageSettings;
 }
 
-
 // Edit
 export interface propsEdit {
     user: {
@@ -33,7 +32,6 @@ export interface columnAssignUser {
     username: string;
     roles: string;
 }
-
 
 type PageSettings = {
     title: string;

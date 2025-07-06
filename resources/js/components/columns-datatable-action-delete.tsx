@@ -1,9 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { flashMessage } from '@/lib/utils';
 import { router } from '@inertiajs/react';
 import { LoaderCircle, TrashIcon } from 'lucide-react';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle } from './ui/alert-dialog';
 
 export default function ColumnsDatatableActionDelete({ url }: { url: string }) {

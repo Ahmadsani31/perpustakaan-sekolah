@@ -9,10 +9,8 @@ import { ArrowLeft, CassetteTape, LoaderCircle } from 'lucide-react';
 import FormInput from '@/components/form-input';
 import FormInputFile from '@/components/form-input-file';
 import FormTextarea from '@/components/form-textarea';
-import { flashMessage } from '@/lib/utils';
-import { FormEventHandler, useRef } from 'react';
-import { toast } from 'react-toastify';
 import { propsEdit, PropsEditForm } from '@/types/category';
+import { FormEventHandler, useRef } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -24,7 +22,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
 ];
-
 
 export default function Edit({ page_settings, category }: propsEdit) {
     const fileInputCover = useRef<HTMLInputElement | null>(null);

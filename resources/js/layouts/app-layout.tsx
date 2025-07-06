@@ -1,6 +1,5 @@
 import Banner from '@/components/banner';
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
-import { flashMessage } from '@/lib/utils';
 import { type BreadcrumbItem } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { useEffect, type ReactNode } from 'react';
@@ -13,7 +12,7 @@ interface AppLayoutProps {
 export default function ({ children, breadcrumbs, ...props }: AppLayoutProps) {
     const dataProps = usePage().props;
 
-    const flash = dataProps.flash_message as { type: string, message: string };
+    const flash = dataProps.flash_message as { type: string; message: string };
     // if (flash.type != null && !flash.message != null) {
 
     //     if (flash.type == 'success') toast.success(flash.message);

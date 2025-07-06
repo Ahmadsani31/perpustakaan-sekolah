@@ -13,7 +13,7 @@ import FormTextarea from '@/components/form-textarea';
 import ReactSelect from '@/components/react-select';
 import ReactSelectTahun from '@/components/react-select-tahun';
 import { flashMessage } from '@/lib/utils';
-import { propsCreateForm, propsCreate } from '@/types/book';
+import { propsCreate, propsCreateForm } from '@/types/book';
 import { FormEventHandler, useRef } from 'react';
 import { toast } from 'react-toastify';
 

@@ -1,9 +1,9 @@
-import { Link, router } from '@inertiajs/react';
+import { columnAnnouncement } from '@/types/announcement';
+import { Link } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { PencilIcon } from 'lucide-react';
 import ColumnsDatatableActionDelete from './columns-datatable-action-delete';
 import { Button } from './ui/button';
-import { columnAnnouncement } from '@/types/announcement';
 
 export const ColumnsAnnouncement: ColumnDef<columnAnnouncement>[] = [
     {

@@ -7,7 +7,7 @@ import { formatToRupiah } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
-import { AlignCenterHorizontalIcon, EyeIcon, PlusCircle } from 'lucide-react';
+import { AlignCenterHorizontalIcon, EyeIcon } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

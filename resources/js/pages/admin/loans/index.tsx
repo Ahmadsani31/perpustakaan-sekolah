@@ -1,31 +1,17 @@
 import HeaderTitle from '@/components/header-title';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/react';
-import { AlignCenterHorizontalIcon, CreditCardIcon, PencilIcon, PlusCircle, TrashIcon } from 'lucide-react';
+import { Head, Link } from '@inertiajs/react';
+import { AlignCenterHorizontalIcon, CreditCardIcon, PencilIcon, PlusCircle } from 'lucide-react';
 
-import { flashMessage } from '@/lib/utils';
-import { toast } from 'react-toastify';
-
+import ColumnsDatatableActionDelete from '@/components/columns-datatable-action-delete';
 import { DataTable } from '@/components/data-table';
 import DialogLoanCreate from '@/components/dialog-loan-create';
+import DialogLoanEdit from '@/components/dialog-loan-edit';
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
-import DialogLoanEdit from '@/components/dialog-loan-edit';
-import ColumnsDatatableActionDelete from '@/components/columns-datatable-action-delete';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -112,7 +98,6 @@ export const columns: ColumnDef<itemUserIndex>[] = [
                     <ColumnsDatatableActionDelete url={route('admin.loans.destroy', [row.original])} />
 
                     {dialogEdit && <DialogLoanEdit open={dialogEdit} onOpenChange={setDialogEdit} id={row.original.id} />}
-
                 </div>
             );
         },

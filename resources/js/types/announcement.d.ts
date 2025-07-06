@@ -9,7 +9,6 @@ export interface propsIndex {
     };
 }
 
-
 //CREATE
 export interface propsCreate {
     page_settings: pageSettings;
@@ -20,7 +19,7 @@ export interface propsCreateForm {
     url: string;
     is_active: boolean;
     _method: string;
-};
+}
 
 //EDIT
 interface propsEdit {
@@ -41,7 +40,6 @@ type propsEditForm = {
     _method: string;
 };
 
-
 //-----------------------------
 
 export interface columnAnnouncement {
@@ -55,12 +53,11 @@ export interface columnAnnouncement {
     loan_date: string;
     due_date: string;
     created_at: string;
-};
-
+}
 
 type pageSettings = {
     title: string;
     subtitle: string;
     method: string;
     action: string;
-}
+};

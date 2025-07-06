@@ -9,14 +9,12 @@ interface propsPage {
     };
 }
 
-
-
 // Create
 export interface propsPageCreate {
     page_settings: PageSettings;
-    roles: roles[],
-    permissions: permissions[],
-    routes: routes[]
+    roles: roles[];
+    permissions: permissions[];
+    routes: routes[];
 }
 
 export interface propsFormCreate {
@@ -29,8 +27,8 @@ export interface propsFormCreate {
 // Edit
 export interface propsPageEdit {
     page_settings: PageSettings;
-    roles: roles[],
-    permissions: permissions[],
+    roles: roles[];
+    permissions: permissions[];
     routes: routes[];
     routeAccess: {
         route_name: string;
@@ -52,18 +50,17 @@ export interface propsFormEdit {
     _method: string;
 }
 
-
 // all
 export interface itemColumns {
     id: number;
     route_name: string;
     role: {
-        id: number,
-        name: string
+        id: number;
+        name: string;
     };
     permissions: {
-        id: number,
-        name: string
+        id: number;
+        name: string;
     };
     created_at: string;
 }
@@ -76,16 +73,16 @@ type PageSettings = {
 };
 
 type roles = {
-    value: number,
-    label: string
-}
+    value: number;
+    label: string;
+};
 
 type permissions = {
-    value: number,
-    label: string
-}
+    value: number;
+    label: string;
+};
 
 type routes = {
-    value: number,
-    label: string
-}
+    value: number;
+    label: string;
+};

@@ -5,10 +5,9 @@ import axios from 'axios';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import LoadingSkeleton from './loading-skeleton';
 import ReactSelect from './react-select';
 import { Button } from './ui/button';
-import { PlaceholderPattern } from './ui/placeholder-pattern';
-import LoadingSkeleton from './loading-skeleton';
 
 interface propsPage {
     open: boolean;
@@ -27,7 +26,6 @@ export default function DialogLoanEdit({ open, onOpenChange, id }: propsPage) {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(false);
 
-
     const { data, setData, post, reset, errors, processing } = useForm<Required<PropsForm>>({
         book: '',
         user: '',
@@ -35,9 +33,8 @@ export default function DialogLoanEdit({ open, onOpenChange, id }: propsPage) {
     });
 
     useEffect(() => {
-
         async function fetchData() {
-            setLoading(true)
+            setLoading(true);
             try {
                 const response = await axios.get(route('admin.loans.edit', [id]));
                 // console.log(response.data.page_data);
@@ -50,13 +47,11 @@ export default function DialogLoanEdit({ open, onOpenChange, id }: propsPage) {
             } catch (error) {
                 console.error(error);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
         }
         fetchData();
     }, [id]);
-
-
 
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -88,8 +83,9 @@ export default function DialogLoanEdit({ open, onOpenChange, id }: propsPage) {
                     <DialogDescription>Buat peminjaman buku baru disini, klik simpan setelah selesai.</DialogDescription>
                     <hr />
                 </DialogHeader>
-                {loading ? <LoadingSkeleton loop={2} /> : (
-
+                {loading ? (
+                    <LoadingSkeleton loop={2} />
+                ) : (
                     <form onSubmit={onHandleSubmit}>
                         <div className="grid gap-3 py-4">
                             <ReactSelect
@@ -122,7 +118,6 @@ export default function DialogLoanEdit({ open, onOpenChange, id }: propsPage) {
                         </div>
                     </form>
                 )}
-
             </DialogContent>
         </Dialog>
     );

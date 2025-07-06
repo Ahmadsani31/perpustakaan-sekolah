@@ -1,11 +1,10 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { itemColumns } from '@/types/rute-access';
 import { Link } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
-import { PencilIcon, RefreshCcw } from 'lucide-react';
+import { PencilIcon } from 'lucide-react';
 import ColumnsDatatableActionDelete from './columns-datatable-action-delete';
-import { Badge } from './ui/badge';
 import { Button } from './ui/button';
-import { itemColumns } from '@/types/rute-access';
 
 export const ColumnsRuteAccess: ColumnDef<itemColumns>[] = [
     {
@@ -38,7 +37,7 @@ export const ColumnsRuteAccess: ColumnDef<itemColumns>[] = [
                                 </Link>
                             </Button>
                         </TooltipTrigger>
-                        <TooltipContent side='left'>
+                        <TooltipContent side="left">
                             <p>Edit</p>
                         </TooltipContent>
                     </Tooltip>

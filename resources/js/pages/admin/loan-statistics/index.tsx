@@ -1,14 +1,14 @@
 import HeaderTitle from '@/components/header-title';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { AlignCenterHorizontalIcon, Calendar, Calendar1, CalendarDays, CalendarRange } from 'lucide-react';
 
-import { ColumnDef } from '@tanstack/react-table';
-import { SectionCards } from '@/components/section-cards';
 import { DataTable } from '@/components/data-table';
+import { SectionCards } from '@/components/section-cards';
+import { ColumnDef } from '@tanstack/react-table';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -47,7 +47,7 @@ export const columnsA: ColumnDef<ItemDatatable>[] = [
     {
         accessorKey: 'loans_count',
         header: 'Jumlah',
-    }
+    },
 ];
 
 export const columnsB: ColumnDef<ItemDatatable>[] = [
@@ -62,7 +62,7 @@ export const columnsB: ColumnDef<ItemDatatable>[] = [
     {
         accessorKey: 'loans_count',
         header: 'Jumlah',
-    }
+    },
 ];
 
 export default function Index({ page_settings, page_data }: propsPage) {
@@ -78,19 +78,17 @@ export default function Index({ page_settings, page_data }: propsPage) {
                 <div className="mb-4 flex flex-col items-start justify-between gap-y-4 sm:flex-row sm:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />
                 </div>
-                <div className="grid auto-rows-min gap-4 md:grid-cols-4 mb-5 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
-                    <SectionCards name='Harian' icon={Calendar} value={page_data.total_loan.days} />
-                    <SectionCards name='Mingguan' icon={CalendarDays} value={page_data.total_loan.weeks} />
-                    <SectionCards name='Bulanan' icon={CalendarRange} value={page_data.total_loan.months} />
-                    <SectionCards name='Tahunan' icon={Calendar1} value={page_data.total_loan.years} />
+                <div className="mb-5 grid auto-rows-min gap-4 md:grid-cols-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+                    <SectionCards name="Harian" icon={Calendar} value={page_data.total_loan.days} />
+                    <SectionCards name="Mingguan" icon={CalendarDays} value={page_data.total_loan.weeks} />
+                    <SectionCards name="Bulanan" icon={CalendarRange} value={page_data.total_loan.months} />
+                    <SectionCards name="Tahunan" icon={Calendar1} value={page_data.total_loan.years} />
                 </div>
-                <h2 className='font-semibold leading-relaxed text-foreground mb-3'>Peminjaman Per Buku</h2>
-                <div className='grid auto-rows-min gap-4 lg:grid-cols-2 '>
+                <h2 className="mb-3 leading-relaxed font-semibold text-foreground">Peminjaman Per Buku</h2>
+                <div className="grid auto-rows-min gap-4 lg:grid-cols-2">
                     <Card className="w-full">
                         <CardHeader>
-                            <CardTitle >
-                                Buku Paling Banyak Dipinjam
-                            </CardTitle>
+                            <CardTitle>Buku Paling Banyak Dipinjam</CardTitle>
                         </CardHeader>
                         <CardContent className="[&-td]:whitespace-nowrap">
                             <DataTable
@@ -105,9 +103,7 @@ export default function Index({ page_settings, page_data }: propsPage) {
                     </Card>
                     <Card className="w-full">
                         <CardHeader>
-                            <CardTitle>
-                                Buku Paling Sedikit Dipinjam
-                            </CardTitle>
+                            <CardTitle>Buku Paling Sedikit Dipinjam</CardTitle>
                         </CardHeader>
                         <CardContent className="[&-td]:whitespace-nowrap">
                             <DataTable

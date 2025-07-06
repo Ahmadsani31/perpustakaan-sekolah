@@ -10,9 +10,9 @@ import FormInput from '@/components/form-input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { flashMessage } from '@/lib/utils';
+import { propsCreate, propsCreateForm } from '@/types/announcement';
 import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
-import { propsCreate, propsCreateForm } from '@/types/announcement';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

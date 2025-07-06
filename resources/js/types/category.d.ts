@@ -43,8 +43,7 @@ export interface propsCreateForm {
     description: string;
     cover: File | null;
     _method: string;
-};
-
+}
 
 //EDIT
 export interface propsEdit {
@@ -63,8 +62,7 @@ export interface PropsEditForm {
     description: string;
     cover: string | File | null;
     _method: string;
-};
-
+}
 
 //--------------------
 

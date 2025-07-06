@@ -10,9 +10,9 @@ import FormInput from '@/components/form-input';
 import FormInputFile from '@/components/form-input-file';
 import FormTextarea from '@/components/form-textarea';
 import { flashMessage } from '@/lib/utils';
+import { propsCreate, propsCreateForm } from '@/types/category';
 import { FormEventHandler, useRef } from 'react';
 import { toast } from 'react-toastify';
-import { propsCreate, propsCreateForm } from '@/types/category';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -24,7 +24,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
 ];
-
 
 export default function Create({ page_settings }: propsCreate) {
     const fileInputCover = useRef<HTMLInputElement | null>(null);

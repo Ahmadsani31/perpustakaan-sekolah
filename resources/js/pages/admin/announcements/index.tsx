@@ -1,28 +1,13 @@
 import HeaderTitle from '@/components/header-title';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { flashMessage } from '@/lib/utils';
 import { BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/react';
-import { AlignCenterHorizontalIcon, PencilIcon, PlusCircle, TrashIcon } from 'lucide-react';
-import { toast } from 'react-toastify';
+import { Head, Link } from '@inertiajs/react';
+import { AlignCenterHorizontalIcon, PlusCircle } from 'lucide-react';
 
-import { DataTable } from '@/components/data-table';
-import { ColumnDef } from '@tanstack/react-table';
-import ColumnsDatatableActionDelete from '@/components/columns-datatable-action-delete';
 import { ColumnsAnnouncement } from '@/components/columns-announcement';
+import { DataTable } from '@/components/data-table';
 import { propsIndex } from '@/types/announcement';
 
 const breadcrumbs: BreadcrumbItem[] = [

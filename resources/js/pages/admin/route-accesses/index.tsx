@@ -22,9 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-
 export default function Index({ routeAccess, page_settings }: propsPage) {
-
     console.log(routeAccess);
 
     return (
@@ -44,7 +42,6 @@ export default function Index({ routeAccess, page_settings }: propsPage) {
                     </Button>
                 </div>
                 <Card className="py-1 [&_td]:px-3 [&_th]:px-3">
-
                     <CardContent className="[&-td]:whitespace-nowrap">
                         <DataTable
                             columns={ColumnsRuteAccess}
@@ -55,7 +52,6 @@ export default function Index({ routeAccess, page_settings }: propsPage) {
                             dynamicIndex={true}
                         />
                     </CardContent>
-
                 </Card>
             </div>
         </AppLayout>
