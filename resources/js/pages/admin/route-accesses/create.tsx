@@ -6,12 +6,12 @@ import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { ArrowLeft, CassetteTape, LoaderCircle } from 'lucide-react';
 
-import FormInput from '@/components/form-input';
-import FormInputFile from '@/components/form-input-file';
-import FormTextarea from '@/components/form-textarea';
 import { flashMessage } from '@/lib/utils';
-import { FormEventHandler, useRef } from 'react';
+import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
+import { propsFormCreate, propsPageCreate } from '@/types/rute-access';
+
+import ReactSelect from '@/components/react-select';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -19,39 +19,25 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
     {
-        title: 'Category',
+        title: 'Tambah Rute',
         href: '#',
     },
 ];
 
-interface propsPage {
-    page_settings: {
-        title: string;
-        subtitle: string;
-        method: string;
-        action: string;
-    };
-}
+export default function Create({ page_settings, roles, permissions, routes }: propsPageCreate) {
 
-type PropsForm = {
-    name: string;
-    description: string;
-    cover: File | null;
-    _method: string;
-};
-
-export default function Create({ page_settings }: propsPage) {
-    const fileInputCover = useRef<HTMLInputElement | null>(null);
-
-    const { data, setData, post, reset, errors, processing } = useForm<Required<PropsForm>>({
-        name: '',
-        description: '',
-        cover: null,
+    const { data, setData, post, reset, errors, processing } = useForm<Required<propsFormCreate>>({
+        route_name: '',
+        role_id: '',
+        permission_id: '',
         _method: page_settings.method,
     });
 
+
     const onHandleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
+
+        console.log(data);
 
         post(page_settings.action, {
             preserveScroll: true,
@@ -66,19 +52,16 @@ export default function Create({ page_settings }: propsPage) {
 
     const onHandleReset = () => {
         reset();
-        if (fileInputCover.current) {
-            fileInputCover.current.value = '';
-        }
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Tambah Category" />
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2 pb-32">
                 <div className="mb-8 flex flex-col items-start justify-between gap-y-4 md:flex-row md:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />
                     <Button variant={'warning'} size={'lg'} asChild>
-                        <Link href={route('admin.categories.index')}>
+                        <Link href={route('admin.route-accesses.index')}>
                             <ArrowLeft /> Back
                         </Link>
                     </Button>
@@ -86,29 +69,33 @@ export default function Create({ page_settings }: propsPage) {
                 <Card>
                     <CardContent>
                         <form onSubmit={onHandleSubmit} className="space-y-6">
-                            <FormInput
-                                id="name"
-                                title="Name"
-                                type="text"
-                                placeholder="Name katagory..."
-                                value={data.name}
-                                onChange={(e) => setData('name', e.target.value)}
-                                errors={errors.name}
+                            <ReactSelect
+                                id="rute"
+                                title="Rute"
+                                dataValue={routes.filter((route) => route.value != null)}
+                                value={data.route_name}
+                                onValueChange={(value) => setData('route_name', value)}
+                                placeholder="Pilih rute"
+                                errors={errors.route_name}
+                                required={true}
                             />
-                            <FormTextarea
-                                id="description"
-                                title="Description"
-                                placeholder="Masukan keterangan... (opsional)"
-                                value={data.description}
-                                onChange={(e) => setData('description', e.target.value)}
-                                errors={errors.description}
+                            <ReactSelect
+                                id="peran"
+                                title="Peran"
+                                dataValue={roles}
+                                value={data.role_id}
+                                onValueChange={(value) => setData('role_id', value)}
+                                placeholder="Pilih Peran"
+                                errors={errors.role_id}
                             />
-                            <FormInputFile
-                                id="logo"
-                                title="Logo"
-                                onChange={(e) => setData('cover', e.target.files && e.target.files[0] ? e.target.files[0] : null)}
-                                ref={fileInputCover}
-                                errors={errors.cover}
+                            <ReactSelect
+                                id="izin"
+                                title="Izin"
+                                dataValue={permissions}
+                                value={data.permission_id}
+                                onValueChange={(value) => setData('permission_id', value)}
+                                placeholder="Pilih Izin"
+                                errors={errors.permission_id}
                             />
 
                             <div className="flex justify-end gap-x-2">
