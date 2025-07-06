@@ -37,7 +37,7 @@ export interface NavSettingItem {
 export interface NavItemSub {
     title: string;
     href: string;
-    icon?: LucideIcon | null;
+    icon?: any | null;
     isActive?: boolean;
 }
 

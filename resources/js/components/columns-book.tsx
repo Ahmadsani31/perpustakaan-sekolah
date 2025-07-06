@@ -1,22 +1,13 @@
-import {
-    AlertDialog,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { flashMessage, formatToRupiah } from '@/lib/utils';
 import { itemBook } from '@/types/book';
 import { Link, router } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
-import { LoaderCircle, PencilIcon, TrashIcon } from 'lucide-react';
+import { PencilIcon } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import ColumnsDatatableActionDelete from './columns-datatable-action-delete';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
-import ColumnsDatatableActionDelete from './columns-datatable-action-delete';
 
 export const ColumnsBook: ColumnDef<itemBook>[] = [
     {

@@ -2,8 +2,8 @@ import { NavMain } from '@/components/nav-main';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookIcon, CassetteTapeIcon, CircleCheck, CircleDivide, CookieIcon, HouseIcon, InfoIcon, SettingsIcon, Target, User2Icon } from 'lucide-react';
-
+import { BookIcon, CassetteTapeIcon, CircleCheck, CookieIcon, HouseIcon, InfoIcon, SettingsIcon, User2Icon, UserCheck } from 'lucide-react';
+import { GoVersions } from 'react-icons/go';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -71,19 +71,14 @@ const mainNavItems: NavItem[] = [
                 icon: CircleCheck,
             },
             {
-                title: 'Peran',
+                title: 'Izin',
                 href: '/admin/permissions',
-                icon: Target,
+                icon: GoVersions,
             },
             {
-                title: 'Tetapkan Izin',
-                href: '#',
-                icon: CassetteTapeIcon,
-            },
-            {
-                title: 'Tetapkan Peran',
-                href: '#',
-                icon: CassetteTapeIcon,
+                title: 'User Peran',
+                href: '/admin/assign-users',
+                icon: UserCheck,
             },
             {
                 title: 'Akses Rute',

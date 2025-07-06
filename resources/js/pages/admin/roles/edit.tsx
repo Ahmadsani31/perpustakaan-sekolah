@@ -7,13 +7,11 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { ArrowLeft, CassetteTape, LoaderCircle } from 'lucide-react';
 
 import FormInput from '@/components/form-input';
-import FormInputFile from '@/components/form-input-file';
-import FormTextarea from '@/components/form-textarea';
+import FormSelect from '@/components/form-select';
 import { flashMessage } from '@/lib/utils';
+import { propsFormEdit, propsPageEdit } from '@/types/roles';
 import { FormEventHandler, useRef } from 'react';
 import { toast } from 'react-toastify';
-import { propsFormEdit, propsPageEdit } from '@/types/roles';
-import FormSelect from '@/components/form-select';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,7 +23,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
 ];
-
 
 export default function Edit({ page_settings, roles }: propsPageEdit) {
     const fileInputCover = useRef<HTMLInputElement | null>(null);
@@ -64,7 +61,7 @@ export default function Edit({ page_settings, roles }: propsPageEdit) {
     const options = [
         { value: 'web', label: 'WEB' },
         { value: 'api', label: 'API' },
-    ]
+    ];
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

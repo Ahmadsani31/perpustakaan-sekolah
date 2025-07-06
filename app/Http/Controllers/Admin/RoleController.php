@@ -21,7 +21,7 @@ class RoleController extends Controller
             'subtitle' => 'Menampilkan semua data roles yang tersedia pada platform ini',
         ];
 
-        $query = Role::select('id', 'name', 'guard_name', 'created_at')->get();
+        $query = Role::select('id', 'name', 'guard_name', 'created_at')->with('permissions')->get();
         $roles = RoleResource::collection($query);
         return Inertia::render('admin/roles/index', compact('roles', 'page_settings'));
     }

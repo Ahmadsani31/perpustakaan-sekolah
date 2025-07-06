@@ -1,24 +1,21 @@
 import {
     AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
-    AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { flashMessage } from '@/lib/utils';
-import { Link, router, useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
-import { LoaderCircle, LockKeyhole, PencilIcon, TrashIcon } from 'lucide-react';
+import { LoaderCircle, LockKeyhole, PencilIcon } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'react-toastify';
+import ColumnsDatatableActionDelete from './columns-datatable-action-delete';
 import FormInput from './form-input';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
-import ColumnsDatatableActionDelete from './columns-datatable-action-delete';
 
 type itemUserIndex = {
     id: number;

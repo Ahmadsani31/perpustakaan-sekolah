@@ -22,7 +22,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Index({ books, page_settings }: propsPage) {
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Buku" />

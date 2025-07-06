@@ -10,8 +10,9 @@ type itemsProps = {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     errors?: string;
     required?: boolean;
+    disabled?: boolean;
 };
-export default function FormInput({ id, title, value, errors, placeholder, type, onChange, required }: itemsProps) {
+export default function FormInput({ id, title, value, errors, placeholder, type, onChange, required, disabled }: itemsProps) {
     let autoComplete = '';
     switch (type) {
         case 'password':
@@ -39,6 +40,7 @@ export default function FormInput({ id, title, value, errors, placeholder, type,
                 className={cn(errors ? 'border-red-500' : '')}
                 required={required}
                 min={0}
+                disabled={disabled}
             />
             {errors && <p className="m-0 text-sm text-red-500">{errors}</p>}
         </div>

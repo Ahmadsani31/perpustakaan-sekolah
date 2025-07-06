@@ -7,7 +7,6 @@ export interface propsPage {
         title: string;
         subtitle: string;
     };
-
 }
 
 type meta = {
@@ -30,7 +29,6 @@ export interface itemColumns {
     name: string;
     guard_name: string;
     created_at: string;
-
 }
 
 // Create
@@ -66,7 +64,6 @@ type PageSettings = {
 export interface propsPageEdit {
     permissions: itemEdit;
     page_settings: PageSettings;
-
 }
 
 type itemEdit = {

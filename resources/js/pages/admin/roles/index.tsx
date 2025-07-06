@@ -3,12 +3,12 @@ import { DataTable } from '@/components/data-table';
 import HeaderTitle from '@/components/header-title';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
-import { itemColumns, propsPage } from '@/types/roles';
-import { Head, Link, router } from '@inertiajs/react';
-import { AlignCenterHorizontalIcon, ArrowDownUpIcon, PencilIcon, PlusCircle, RefreshCwIcon, TrashIcon } from 'lucide-react';
+import { propsPage } from '@/types/roles';
+import { Head, Link } from '@inertiajs/react';
+import { AlignCenterHorizontalIcon, PlusCircle } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -16,18 +16,17 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
     {
-        title: 'Roles',
+        title: 'Peran',
         href: '#',
     },
 ];
 
-
 export default function Index({ roles, page_settings }: propsPage) {
-
+    console.log(roles);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Roles" />
+            <Head title="Peran" />
             <div className="flex w-full flex-col px-4 py-2">
                 <div className="mb-4 flex flex-col items-start justify-between gap-y-4 sm:flex-row sm:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />

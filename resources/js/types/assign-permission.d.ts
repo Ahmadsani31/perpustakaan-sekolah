@@ -1,12 +1,8 @@
 //INDEX
 export interface propsPage {
-    roles: {
-        data: itemColumns[];
-    };
-    page_settings: {
-        title: string;
-        subtitle: string;
-    };
+    role: [];
+    permission: [];
+    page_settings: PageSettings;
 }
 
 type meta = {
@@ -62,7 +58,14 @@ type PageSettings = {
 
 // Edit
 export interface propsPageEdit {
-    roles: itemEdit;
+    role: {
+        name: string;
+        permissions: {
+            id: number;
+            name: string;
+        }[];
+    };
+    permissions: [];
     page_settings: PageSettings;
 }
 
@@ -73,8 +76,7 @@ type itemEdit = {
 };
 
 export interface propsFormEdit {
-    id: number;
     name: string;
-    guard_name: string;
+    permissions: string[];
     _method: string;
 }
