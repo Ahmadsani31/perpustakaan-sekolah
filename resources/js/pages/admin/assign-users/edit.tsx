@@ -71,7 +71,7 @@ export default function Edit({ page_settings, user, roles }: propsPageEdit) {
                 <div className="mb-8 flex flex-col items-start justify-between gap-y-4 md:flex-row md:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={CassetteTape} />
                     <Button variant={'warning'} size={'lg'} asChild>
-                        <Link href={route('admin.roles.index')}>
+                        <Link href={route('admin.assign-users.index')}>
                             <ArrowLeft /> Back
                         </Link>
                     </Button>

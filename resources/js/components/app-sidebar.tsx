@@ -2,7 +2,7 @@ import { NavMain } from '@/components/nav-main';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookIcon, CassetteTapeIcon, CircleCheck, CookieIcon, GalleryHorizontalEnd, HouseIcon, InfoIcon, Route, SettingsIcon, User2Icon, UserCheck } from 'lucide-react';
+import { BookIcon, CassetteTapeIcon, ChartCandlestickIcon, ChartNetwork, CircleCheck, CookieIcon, GalleryHorizontalEnd, HouseIcon, InfoIcon, Route, SettingsIcon, User2Icon, UserCheck } from 'lucide-react';
 import { GoVersions } from 'react-icons/go';
 import AppLogo from './app-logo';
 
@@ -15,6 +15,25 @@ const mainNavItems: NavItem[] = [
                 href: '/dashboard',
                 icon: CookieIcon,
             },
+        ],
+    },
+    {
+        header: 'Statistik',
+        menu: [
+            {
+                title: 'Statistik Peminjaman',
+                href: '/admin/loan-statistics',
+                icon: ChartNetwork,
+            },
+            {
+                title: 'Laporan Denda',
+                href: '#',
+                icon: CassetteTapeIcon,
+            }, {
+                title: 'Laporan Stok Buku',
+                href: '#',
+                icon: CassetteTapeIcon,
+            }
         ],
     },
     {

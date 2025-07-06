@@ -49,12 +49,12 @@ class ReturnBookController extends Controller
 
     public function create(Loan $loan): Response | RedirectResponse
     {
-
         if ($loan->returnBook()->exists()) {
             return to_route('admin.loans.index');
         }
 
         if (!FineSetting::first()) {
+            flashMessage('Pengaturan Denda peminjaman belum di setting', 'error');
             return back();
         }
         return Inertia::render('admin/return-books/create', [

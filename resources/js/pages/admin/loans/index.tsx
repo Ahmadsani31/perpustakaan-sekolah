@@ -24,6 +24,8 @@ import { DataTable } from '@/components/data-table';
 import DialogLoanCreate from '@/components/dialog-loan-create';
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
+import DialogLoanEdit from '@/components/dialog-loan-edit';
+import ColumnsDatatableActionDelete from '@/components/columns-datatable-action-delete';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -88,6 +90,7 @@ export const columns: ColumnDef<itemUserIndex>[] = [
         id: 'actions',
         header: () => <span className="flex justify-center"> Aksi </span>,
         cell: ({ row }: any) => {
+            const [dialogEdit, setDialogEdit] = useState(false);
             return (
                 <div className="flex items-center justify-center gap-x-1">
                     {!row.original.has_return_book ? (
@@ -97,47 +100,19 @@ export const columns: ColumnDef<itemUserIndex>[] = [
                             </Link>
                         </Button>
                     ) : null}
+                    <Button variant={'default'} size={'sm'} onClick={() => setDialogEdit(true)}>
+                        <PencilIcon />
+                    </Button>
 
-                    <Button variant={'default'} size={'sm'} asChild>
+                    {/* <Button variant={'default'} size={'sm'} asChild>
                         <Link href={route('admin.loans.edit', row.original)}>
                             <PencilIcon />
                         </Link>
-                    </Button>
+                    </Button> */}
+                    <ColumnsDatatableActionDelete url={route('admin.loans.destroy', [row.original])} />
 
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild className="cursor-pointer">
-                            <Button variant={'destructive'} size={'sm'}>
-                                <TrashIcon />
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Apakah anda sudah yakin?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    Tindakan ini dapat menghapus data secara permanent dan tidak bisa dibatalkan. "Yes", berarti kamu sudah yakin
-                                    untuk menghapus data secara permanent dari server.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                    onClick={() =>
-                                        router.delete(route('admin.loans.destroy', [row.original.id]), {
-                                            preserveScroll: true,
-                                            preserveState: true,
-                                            onSuccess: (success) => {
-                                                const flash = flashMessage(success);
-                                                if (flash.type == 'success') toast.success(flash.message);
-                                                if (flash.type == 'error') toast.error(flash.message);
-                                            },
-                                        })
-                                    }
-                                >
-                                    Yes, delete
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
+                    {dialogEdit && <DialogLoanEdit open={dialogEdit} onOpenChange={setDialogEdit} id={row.original.id} />}
+
                 </div>
             );
         },

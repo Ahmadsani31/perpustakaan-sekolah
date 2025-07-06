@@ -118,16 +118,10 @@ export const columns: ColumnDef<itemData>[] = [
 export default function Index({ return_books, page_settings }: propsPage) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Pengembalian Buku" />
+            <Head title={page_settings.title} />
             <div className="flex w-full flex-col px-4 py-2">
                 <div className="mb-4 flex flex-col items-start justify-between gap-y-4 sm:flex-row sm:items-center">
                     <HeaderTitle title={page_settings.title} subtitle={page_settings.subtitle} icon={AlignCenterHorizontalIcon} />
-
-                    <Button variant={'primary'} size={'lg'} asChild>
-                        <Link href={'#'}>
-                            <PlusCircle /> Tambah
-                        </Link>
-                    </Button>
                 </div>
                 <Card className="py-1 [&_td]:px-3 [&_th]:px-3">
                     <CardContent className="[&-td]:whitespace-nowrap">

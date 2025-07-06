@@ -11,6 +11,7 @@ import { Button } from './ui/button';
 interface propsPage {
     open: boolean;
     onOpenChange: (e: boolean) => void;
+    id?: number;
 }
 
 type PropsForm = {
@@ -26,7 +27,7 @@ export default function DialogLoanCreate({ open, onOpenChange }: propsPage) {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get(route('admin.loans.load-data'));
+                const response = await axios.get(route('admin.loans.create'));
                 // console.log(response.data.page_data);
 
                 const data = response.data.page_data;

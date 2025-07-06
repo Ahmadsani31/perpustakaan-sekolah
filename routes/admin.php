@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FineController;
 use App\Http\Controllers\Admin\FineSettingController;
 use App\Http\Controllers\Admin\LoanController;
+use App\Http\Controllers\Admin\LoanStatisticController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\ReturnBookController;
@@ -17,6 +18,11 @@ use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
+
+    Route::controller(LoanStatisticController::class)->group(function () {
+        Route::get('loan-statistics', 'index')->name('admin.loan-statistics.index');
+    });
+
     Route::controller(CategoryController::class)->group(function () {
         Route::get('categories', 'index')->name('admin.categories.index');
         Route::get('categories/create', 'create')->name('admin.categories.create');
@@ -62,13 +68,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::controller(LoanController::class)->group(function () {
         Route::get('loans', 'index')->name('admin.loans.index');
-        Route::get('loans/create', 'create')->name('admin.loans.create');
+        // Route::get('loans/create', 'create')->name('admin.loans.create');
         Route::post('loans/store', 'store')->name('admin.loans.store');
-        Route::get('loans/edit/{loan}', 'edit')->name('admin.loans.edit');
+        // Route::get('loans/edit/{loan}', 'edit')->name('admin.loans.edit');
         Route::put('loans/update/{loan}', 'update')->name('admin.loans.update');
         Route::delete('loans/destroy/{loan}', 'destroy')->name('admin.loans.destroy');
 
-        Route::get('loans/load-data', 'load_data')->name('admin.loans.load-data');
+        Route::get('loans/create', 'dialog_create')->name('admin.loans.create');
+        Route::get('loans/edit/{loan}', 'dialog_edit')->name('admin.loans.edit');
     });
 
     Route::controller(ReturnBookController::class)->group(function () {

@@ -51,7 +51,7 @@ class AssignUserController extends Controller
             $user->syncRoles($request->roles);
 
             flashMessage("Berhasil menyingkronkan peran ke pengguna {$user->name}");
-            return to_route('admin.roles.index');
+            return to_route('admin.assign-users.index');
         } catch (\Throwable $ee) {
             flashMessage(MessageType::ERROR->message($ee->getMessage()), 'error');
             return back();
